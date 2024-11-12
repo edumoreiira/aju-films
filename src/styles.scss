@@ -7,13 +7,11 @@
     src: url(../public/fonts/avenida-std.otf);
 }
 
-:root {
-    color-scheme: dark;
-}
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
     font-family: Inter, sans-serif;
+}
+.c-container {
+    width: min(1200px, 100% - 80px);
+    margin: 0 auto;
 }
