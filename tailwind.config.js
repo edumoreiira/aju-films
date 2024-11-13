@@ -6,7 +6,9 @@ module.exports = {
   ],
   theme: {
     extend: {
-
+      colors: {
+        primary: '#d4a474',
+      },
       
       transitionDuration: {
         DEFAULT: '200ms',
