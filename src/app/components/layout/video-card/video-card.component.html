@@ -1,29 +1,38 @@
-<div class="bg-gray-100 flex gap-12 h-[25rem] rounded-3xl">
+<div class="bg-gray-100 rounded-3xl relative overflow-hidden">
 
-    <div class="flex flex-col flex-grow justify-between p-10">
-        <div>
-            <h2 class="text-2xl font-bold mb-10">Lorem, ipsum dolor.</h2>
-            <p class="text-gray-600 text-lg mb-6">Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima illum dolorum cupiditate et, quam est provident magni sequi voluptates eaque aperiam voluptatem, ea asperiores nesciunt id commodi. Cum ullam laudantium accusamus eligendi.</p>
-            <button class="bg-green-400 py-2 px-6 text-lg font-medium rounded-full">Solicitar orçamento</button>
-        </div>
-        <p class="text-gray-600">Tempo total de aplicação: <span class="text-black font-medium">5h 30min</span></p>
-    </div>
-    <div class="h-full flex-shrink-0 p-3">
-        <video class="max-h-full w-80 object-cover rounded-2xl"  muted autoplay>
-            <source src="/videos/residencial-trabalho.mp4" type="video/mp4">
-        </video>
-    </div>
+    @for (card of videoCards; track card.id) { 
+        @if(card.id === selectedVideoCard) {
+            <div class="flex gap-12 h-[25rem]" @fadeInOut>
+                <div class="flex flex-col flex-grow justify-between p-10">
+                    <div>
+                        <h2 class="text-2xl font-bold mb-10">{{card.title}}</h2>
+                        <p class="text-gray-600 text-lg mb-6">{{card.description}}</p>
+                        <button class="bg-green-400 py-2 px-6 text-lg font-medium rounded-full">Solicitar orçamento</button>
+                    </div>
+                    <p class="text-gray-600">{{card.footer1}} <span class="text-black font-medium">{{card.footer2}}</span></p>
+                </div>
+                <div class="h-full flex-shrink-0 p-3">
+                    <video #videoRef class="max-h-full w-80 object-cover rounded-2xl" [muted]="true" autoplay
+                    (timeupdate)="updateProgress(videoRef)" (click)="togglePause(videoRef)" (ended)="onVideoEnd()">
+                        <source [src]="card.videoUrl" type="video/mp4">
+                    </video>
+                </div>
+            </div>
+        }
+    }
 </div>
 
 <div class="flex items-center justify-center mt-6 gap-6">
     @for (card of videoCards; track card.id) {
         <div class="flex flex-col gap-2">
             <div class="h-[2px] bg-gray-300">
-                <div class="h-[2px] bg-green-400 w-[20%]"></div>
+                <div class="h-[2px] bg-green-400 transition-all ease-linear" [style.width.%]="card.progress"></div>
             </div>
-            <div class="text-gray-300 flex items-center gap-2">
-                <i class="fi fi-br-house-chimney flex"></i>
-                <span class="font-medium">Aplicação residencial</span>
+            <div class="hover:text-black transition-colors cursor-pointer flex items-center gap-2"
+            [ngClass]="{'text-black' : card.id === selectedVideoCard, 'text-gray-400': card.id !== selectedVideoCard}"
+            (click)="setVideoCard(card.id)">
+                <i [class]="'fi flex ' + card.barIcon"></i>
+                <span class="font-medium">{{card.barText}}</span>
             </div>
         </div>
     }
