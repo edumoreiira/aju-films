@@ -11,6 +11,7 @@ import { Component, HostListener, OnInit } from '@angular/core';
 export class NavbarComponent implements OnInit {
 
   isScrolled = false;
+  isScrolledLimit = false;
 
   ngOnInit(): void {
     if(typeof window !== 'undefined') {
@@ -24,7 +25,8 @@ export class NavbarComponent implements OnInit {
   }
 
   checkScroll() {
-    this.isScrolled = window.scrollY > 50;
+    this.isScrolled = window.scrollY > 200;
+    this.isScrolledLimit = window.scrollY > 700;
   }
 
 }

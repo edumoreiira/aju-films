@@ -1,18 +1,26 @@
-<div class="flex items-center justify-between px-28 py-2 my-6 w-full z-10 text-white sticky top-0 -mt-[7rem]
-transition-all"
-[ngClass]="{'backdrop-blur-sm bg-black bg-opacity-40': isScrolled}">
+<div class="flex items-center justify-between px-6 sm:px-12 lg:px-28 py-2 my-6 w-full z-10 sticky top-0 -mt-[7rem]
+transition-all border-b"
+[ngClass]="{
+    'bg-black bg-opacity-20 border-gray-300 border-b': isScrolled && !isScrolledLimit,
+    'text-black bg-white backdrop-blur-sm bg-opacity-10 border-b border-gray-300': isScrolledLimit,
+    'text-white border-transparent': !isScrolledLimit,
+    }">
     <div>
         <span style="font-family: 'Avenida';"
-        class="text-[3.7rem] leading-none text-nowrap">AJU FILMS</span>
+        class="text-5xl sm:text-[3.7rem] leading-none text-nowrap">AJU FILMS</span>
     </div>
-    <div class="flex items-center gap-x-72">
-        <nav>
-            <ul class="flex gap-16">
-                <li><a href="#">Sobre</a></li>
-                <li><a href="#">Como Funciona</a></li>
-                <li><a href="#">Galeria</a></li>
+    <div class="flex flex-grow justify-between items-center">
+        <nav class="mx-auto">
+            <ul class="flex gap-12">
+                <li class="hidden md:inline"><a href="#">Benefícios</a></li>
+                <li class="hidden md:inline"><a href="#">Nossos serviços</a></li>
+                <li class="hidden lg:inline"><a href="#">Contato</a></li>
             </ul>
         </nav>
-        <button class="bg-stone-50 text-stone-950 py-2 px-4 rounded-full text-sm font-medium">Fazer orçamento</button>
+        <button class="py-2 px-4 rounded-full text-[.7rem] font-medium sm:text-sm transition-colors"
+        [ngClass]="{
+            'bg-stone-950 text-stone-50 hover:bg-stone-700': isScrolledLimit,
+            'bg-stone-50 text-stone-950 hover:bg-stone-200': !isScrolledLimit
+        }">Fazer orçamento</button>
     </div>
 </div>
