@@ -15,7 +15,7 @@
 .main-card-info {
     --border--width: .75rem;
     --border-radius: 2.6rem;
-    &::after, &::before {
+    &::before {
         content: '';
         display: block;
         position: absolute;
@@ -23,22 +23,11 @@
         aspect-ratio: 1/1;
         border-color: white;
         border-width: var(--border--width);
-    }
-    &::before {
         right: 100%;
         bottom: 0;
         transform: translate(var(--border--width), var(--border--width));
         border-bottom-right-radius: var(--border-radius);
         border-top: 0;
         border-left: 0;
-    }
-    &::after {
-        right: 0;
-        bottom: 100%;
-        border-bottom-right-radius: var(--border-radius);
-        border-left: 0;
-        border-top: 0;
-        transform: translate(var(--border--width), var(--border--width));
-        // border-color: red;
     }
 }
