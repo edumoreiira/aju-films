@@ -9,11 +9,11 @@ export const fadeInOut = trigger('fadeInOut', [
     })),
     transition(':enter', [
         style({
-            transform: 'translateY(5%) scale(.98)'
+            transform: 'translateY(5%)'
         }),
-        animate('400ms ease-out')
+        animate('320ms ease-out')
     ]),
     transition(':leave',[
-        animate('400ms ease-out')
+        animate('320ms ease-out')
     ])
 ])

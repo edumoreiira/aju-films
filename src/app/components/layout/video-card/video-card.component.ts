@@ -1,12 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { VideoCard } from '../../../models/video-card.interface';
 import { CommonModule } from '@angular/common';
 import { fadeInOut } from '../../../animations/transitions.animation';
+import { LazyLoadDirective } from '../../../directives/lazyload.directive';
 
 @Component({
   selector: 'app-video-card',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, LazyLoadDirective],
   templateUrl: './video-card.component.html',
   styleUrl: './video-card.component.scss',
   animations: [fadeInOut]
@@ -18,24 +19,36 @@ export class VideoCardComponent {
       id: 1,
       title: 'Residencial',
       description: 'A aplicação da película trouxe proteção e uma renovação estética ao ambiente, combinando alta durabilidade com um visual moderno. A casa agora conta com um toque de elegância, além de proteção eficiente contra raios UV.',
-      videoUrl: '/videos/residencial-trabalho.mp4',
+      videoUrl: '/videos/residencial.mp4',
       footer1: 'Tempo total de aplicação',
       footer2: '5h 30min',
-      barIcon: 'fi-br-house-chimney',
+      barIcon: 'fi-rr-house-chimney',
       barText: 'Aplicação residencial',
       progress: 0,
     },
     {
       id: 2,
       title: 'Comercial',
-      description: 'A aplicação de nossa película comercial trouxe não só proteção e conforto, mas também uma renovação estética para o ambiente. Com materiais de alta qualidade, garantimos durabilidade e resistência, além de um visual moderno e elegante que valoriza o espaço. A casa agora conta com uma proteção discreta e eficiente contra raios UV, mantendo-se fresca e sofisticada ao mesmo tempo.',
-      videoUrl: '/videos/residencial-resultado.mp4',
-      footer1: 'Tempo total de aplicação',
-      footer2: 'Tutorial',
-      barIcon: 'fi-br-building',
+      description: 'A fachada da instituição financeira Sicoob foi modernizada com película de proteção solar, trazendo um visual elegante e atualizado. A aplicação oferece mais conforto térmico, privacidade e eficiência energética, beneficiando colaboradores e clientes',
+      videoUrl: '/videos/comercial-trabalho.mp4',
+      footer1: 'Modelo de película',
+      footer2: 'Silver 20',
+      barIcon: 'fi-rr-bank',
       barText: 'Aplicação comercial',
       progress: 0,
     },
+    {
+      id: 3,
+      title: 'Privacidade Total',
+      description: 'A película espelhada aplicada na porta do banheiro garante privacidade completa, bloqueando a visão externa sem perder o design moderno. Uma solução prática e elegante para ambientes que precisam de discrição.',
+      videoUrl: '/videos/privacidade.mp4',
+      footer1: 'Modelo de película',
+      footer2: 'Espelhado',
+      barIcon: 'fi-rr-eye-crossed',
+      barText: 'Privacidade garantida',
+      progress: 0,
+    },
+
   ]
 
   setVideoCard(id: number) {
