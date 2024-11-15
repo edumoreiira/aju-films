@@ -1,4 +1,4 @@
-import { Component, HostListener } from '@angular/core';
+import { AfterViewInit, Component, HostListener } from '@angular/core';
 import { VideoCard } from '../../../models/video-card.interface';
 import { CommonModule } from '@angular/common';
 import { fadeSlide } from '../../../animations/transitions.animation';
@@ -12,9 +12,9 @@ import { LazyLoadDirective } from '../../../directives/lazyload.directive';
   styleUrl: './video-card.component.scss',
   animations: [fadeSlide]
 })
-export class VideoCardComponent {
+export class VideoCardComponent implements AfterViewInit {
   selectedVideoCard = 1;
-  animationState: 'up' | 'right' = window.innerWidth < 620 ? 'right' : 'up'; // switch state based on screen width
+  animationState: 'up' | 'right' = 'up' // switch state based on screen width
   videoCards: VideoCard[] = [
     {
       id: 1,
@@ -54,6 +54,12 @@ export class VideoCardComponent {
   @HostListener('window:resize')
   onResize() {
     this.animationState = window.innerWidth < 620 ? 'right' : 'up';
+  }
+
+  ngAfterViewInit(): void {
+    if(typeof window !== 'undefined'){
+      this.animationState = window.innerWidth < 620 ? 'right' : 'up';
+    }
   }
 
   setVideoCard(id: number) {

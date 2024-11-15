@@ -16,9 +16,19 @@ export class CardsSectionComponent {
       description: 'Agende a aplicação no mesmo dia e transforme seu lar. Verifique a disponibilidade!'
     },
     {
+      icon: 'fi-rr-pharmacy',
+      title: 'Saúde',
+      description: 'Evita o envelhecimento precoce e câncer de pele, prevenindo danos futuros a sua saúde.'
+    },
+    {
       icon: 'fi-br-research-arrows-circle',
       title: 'Economia de Energia',
       description: 'Reduza o consumo de energia mantendo sua casa na temperatura ideal.'
+    },
+    {
+      icon: 'fi-br-shield-check',
+      title: 'Segurança',
+      description: 'Películas resistentes, desenvolvida para proteger contra estilhaços em casos de acidentes.'
     },
     {
       icon: 'fi-br-low-vision',
@@ -30,16 +40,6 @@ export class CardsSectionComponent {
       title: 'Proteção Solar',
       description: 'Bloqueie até 99% dos raios UV, protegendo sua casa e preservando seus móveis.'
     },
-    {
-      icon: 'fi-br-shield-check',
-      title: 'Durabilidade e Resistência',
-      description: 'Películas de alta qualidade, resistentes a arranhões e fáceis de manter.'
-    },
-    {
-      icon: 'fi-br-graphic-style',
-      title: 'Acabamentos Modernos',
-      description: 'Películas com design sofisticado e várias opções de acabamento para seu espaço.'
-    }
   ];
 
 }
