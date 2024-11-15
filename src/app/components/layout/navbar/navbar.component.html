@@ -12,15 +12,14 @@ transition-all border-b"
     <div class="flex flex-grow justify-between items-center">
         <nav class="mx-auto">
             <ul class="flex gap-12">
-                <li class="hidden md:inline"><a href="#">Benefícios</a></li>
-                <li class="hidden md:inline"><a href="#">Nossos serviços</a></li>
+                <li class="hidden md:inline"><a href="#beneficios">Benefícios</a></li>
+                <li class="hidden md:inline"><a href="#servicos">Nossos serviços</a></li>
                 <li class="hidden lg:inline"><a href="#">Contato</a></li>
             </ul>
         </nav>
         <button class="py-2 px-4 rounded-full font-medium text-sm transition-colors"
-        [ngClass]="{
-            'bg-stone-950 text-stone-50 hover:bg-stone-700': isScrolledLimit,
-            'bg-stone-50 text-stone-950 hover:bg-stone-200': !isScrolledLimit
-        }">Fazer orçamento</button>
+        [ngClass]="
+        isScrolledLimit ? 'bg-stone-950 text-stone-50 hover:bg-stone-200' : 'bg-stone-50 text-stone-950 hover:bg-stone-700'"
+        >Fazer orçamento</button>
     </div>
 </div>

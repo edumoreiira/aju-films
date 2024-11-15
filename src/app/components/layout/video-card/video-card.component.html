@@ -2,7 +2,8 @@
 
     @for (card of videoCards; track card.id) { 
         @if(card.id === selectedVideoCard) {
-            <div class="flex flex-col-reverse sm:flex-row gap-0 lg:gap-12 max-h-full sm:h-[25rem]" @fadeInOut>
+            <div class="flex flex-col-reverse sm:flex-row gap-0 lg:gap-12 max-h-full sm:h-[25rem]"
+            [@fadeSlide]="animationState">
                 <div class="flex flex-col flex-grow justify-between gap-6 p-10">
                     <div>
                         <h2 class="text-2xl font-bold mb-4 md:mb-10">{{card.title}}</h2>
@@ -11,11 +12,17 @@
                     </div>
                     <p class="text-gray-600">{{card.footer1}} <span class="text-black font-medium">{{card.footer2}}</span></p>
                 </div>
-                <div class="h-full flex-shrink-0 p-3">
-                    <video #videoRef videoLazyLoad class="max-h-full aspect-[1.4/1] mx-auto w-[min(600px,100%)] sm:aspect-auto sm:h-auto sm:w-60 md:w-80 object-cover rounded-2xl" [muted]="true" autoplay
+                <div class="relative h-full flex-shrink-0 p-3">
+                    <video #videoRef videoLazyLoad class="max-h-full aspect-[1.4/1] mx-auto w-[min(600px,100%)] 
+                    sm:aspect-auto sm:h-auto sm:w-60 md:w-80 object-cover rounded-2xl" [muted]="true" autoplay
                     (timeupdate)="updateProgress(videoRef)" (click)="togglePause(videoRef)" (ended)="onVideoEnd()"
                     [attr.data-src]="card.videoUrl" type="video/mp4">
                     </video>
+                    <a href="https://www.instagram.com/ajufilms/" target="_blank" class="absolute right-1/2 
+                    translate-x-1/2 bottom-8 bg-black px-4 py-2 bg-opacity-40 
+                    backdrop-blur-sm whitespace-nowrap rounded-full text-white
+                    opacity-60 text-sm hover:opacity-85 active:opacity-100 transition"
+                    >Ver mais no instagram</a>
                 </div>
             </div>
         }
@@ -28,12 +35,12 @@
             <div class="h-[3px] bg-gray-200">
                 <div class="h-[3px] bg-green-400 transition-all ease-linear" [style.width.%]="card.progress"></div>
             </div>
-            <div class="hover:text-black transition-colors cursor-pointer flex items-center gap-2"
+            <button class="hover:text-black transition-colors cursor-pointer flex items-center gap-2"
             [ngClass]="{'text-black' : card.id === selectedVideoCard, 'text-gray-400': card.id !== selectedVideoCard}"
             (click)="setVideoCard(card.id)">
                 <i [class]="'fi flex ' + card.barIcon"></i>
                 <span class="font-light text-sm">{{card.barText}}</span>
-            </div>
+            </button>
         </div>
     }
 </div>

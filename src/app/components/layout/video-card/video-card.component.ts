@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { VideoCard } from '../../../models/video-card.interface';
 import { CommonModule } from '@angular/common';
-import { fadeInOut } from '../../../animations/transitions.animation';
+import { fadeSlide } from '../../../animations/transitions.animation';
 import { LazyLoadDirective } from '../../../directives/lazyload.directive';
 
 @Component({
@@ -10,10 +10,11 @@ import { LazyLoadDirective } from '../../../directives/lazyload.directive';
   imports: [CommonModule, LazyLoadDirective],
   templateUrl: './video-card.component.html',
   styleUrl: './video-card.component.scss',
-  animations: [fadeInOut]
+  animations: [fadeSlide]
 })
 export class VideoCardComponent {
   selectedVideoCard = 1;
+  animationState: 'up' | 'right' = window.innerWidth < 620 ? 'right' : 'up'; // switch state based on screen width
   videoCards: VideoCard[] = [
     {
       id: 1,
@@ -48,8 +49,12 @@ export class VideoCardComponent {
       barText: 'Privacidade garantida',
       progress: 0,
     },
-
   ]
+
+  @HostListener('window:resize')
+  onResize() {
+    this.animationState = window.innerWidth < 620 ? 'right' : 'up';
+  }
 
   setVideoCard(id: number) {
     const currentVideo = this.videoCards[this.selectedVideoCard - 1]
@@ -84,5 +89,7 @@ export class VideoCardComponent {
       this.setVideoCard(1); // loop back to first video when last video ends
     }
   }
+
+  
 
 }
