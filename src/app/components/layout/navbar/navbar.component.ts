@@ -25,8 +25,8 @@ export class NavbarComponent implements OnInit {
   }
 
   checkScroll() {
-    this.isScrolled = window.scrollY > 200;
-    this.isScrolledLimit = window.scrollY > 700;
+    this.isScrolled = window.scrollY > 50;
+    this.isScrolledLimit = window.scrollY > 600;
   }
 
 }

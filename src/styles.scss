@@ -11,7 +11,28 @@
 * {
     font-family: Inter, sans-serif;
 }
+
 .c-container {
-    width: min(1200px, 100% - 80px);
+    @media screen and (min-width: 640px) {
+        width: min(1200px, 100% - 80px);
+    }
+    width: min(1200px, 100% - 40px);
     margin: 0 auto;
+}
+
+:root {
+    
+    
+    @media screen and (min-width: 415px) {
+        font-size: 13px;
+    }
+    
+    @media screen and (min-width: 768px) {
+        font-size: 14px;
+    }
+    
+    @media screen and (min-width: 1280px) {
+        font-size: 16px;
+    }
+    font-size: 12px;
 }

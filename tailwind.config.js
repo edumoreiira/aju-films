@@ -16,6 +16,10 @@ module.exports = {
       transitionTimingFunction: {
         DEFAULT: 'ease-in-out',
       },
+
+      screens: {
+        'xs': '390px', 
+      },
     },
   },
   plugins: [],
