@@ -1,16 +1,15 @@
-import { trigger, transition, style, animate, state } from "@angular/animations";
+import { trigger, transition, style, animate, state, animateChild, group, query } from "@angular/animations";
 
 export const fadeSlide = trigger('fadeSlide', [
     // Definindo os estados
     state('void', style({
-        position: 'absolute',
         opacity: 0,
-        left: 0,
-        top: 0,
     })),
     state('right', style({
     })),
     state('up', style({
+    })),
+    state('noslide', style({
     })),
 
     transition('void => right', [
@@ -27,7 +26,7 @@ export const fadeSlide = trigger('fadeSlide', [
     transition('void => up', [
         style({
             transform: 'translateY(50%)',
-            opacity: 0
+            opacity: 0,
         }),
         animate('520ms ease-out', style({
             transform: 'translateY(0)',
@@ -48,4 +47,27 @@ export const fadeSlide = trigger('fadeSlide', [
             opacity: 0,
         }))
     ]),
+
+    transition('noslide => void', [
+        animate('520ms ease-in', style({
+            opacity: 0,
+        }))
+    ]),
+
+    transition('void => noslide', [
+        animate('520ms ease-in', style({
+            opacity: 1,
+        }))
+    ]),
 ]);
+
+
+export const queryAnimation = [
+    trigger('queryAnimation', [
+      transition(':leave', [
+        group([
+          query('@fadeSlide', animateChild(), { optional: true }),
+        ])
+      ])
+    ])
+  ];

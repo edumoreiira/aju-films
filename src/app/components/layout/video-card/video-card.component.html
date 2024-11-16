@@ -3,14 +3,14 @@
     @for (card of videoCards; track card.id) { 
         @if(card.id === selectedVideoCard) {
             <div class="flex flex-col-reverse sm:flex-row gap-0 lg:gap-12 max-h-full sm:h-[28rem] lg:h-[25rem]">
-                <div class="flex flex-col-reverse flex-grow justify-end gap-6 p-10">
-                    <div>
+                <div class="flex flex-col-reverse flex-grow justify-end gap-6 p-10 sm:pt-10 pt-4">
+                    <div [@fadeSlide]="'up'">
                         <h2 class="text-2xl font-bold mb-2 md:mb-4">{{card.title}}</h2>
                         <p class="text-gray-600 text-lg mb-6">{{card.description}}</p>
                         <button class="bg-green-400 text-black py-2 px-6 text-lg font-medium rounded-full
                         hover:brightness-105 active:brightness-110 transition">Solicitar orçamento</button>
                     </div>
-                    <div class="flex items-center self-start gap-6 py-2 px-4 bg-gray-200 rounded-2xl">
+                    <div class="flex items-center self-center sm:self-start gap-6 py-2 px-4 bg-gray-200 rounded-2xl">
                         @for (card of videoCards; track card.id) {
                             <div class="flex flex-col-reverse gap-1 justify-center cursor-pointer group"
                             (click)="setVideoCard(card.id)">
@@ -26,7 +26,7 @@
                         }
                     </div>
                 </div>
-                <div class="relative h-full flex-shrink-0 p-3">
+                <div class="relative h-full flex-shrink-0 p-3" [@fadeSlide]="'noslide'">
                     <video #videoRef videoLazyLoad class="max-h-full aspect-[1.4/1] mx-auto w-[min(600px,100%)] 
                     sm:aspect-auto sm:h-auto sm:w-60 md:w-80 object-cover rounded-2xl" [muted]="true" autoplay
                     (timeupdate)="updateProgress(videoRef)" (click)="togglePause(videoRef)" (ended)="onVideoEnd()"
