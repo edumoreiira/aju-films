@@ -30,7 +30,7 @@ export class VideoCardComponent implements AfterViewInit {
     {
       id: 2,
       title: 'Comercial',
-      description: 'A fachada da instituição financeira Sicoob foi modernizada com película de proteção solar, trazendo um visual elegante e atualizado. A aplicação oferece mais conforto térmico, privacidade e eficiência energética, beneficiando colaboradores e clientes',
+      description: 'A fachada do Sicoob foi modernizada com película de proteção solar, proporcionando um visual elegante e moderno, além do conforto térmico e privacidade  para colaboradores e clientes.',
       videoUrl: '/videos/comercial-trabalho.mp4',
       footer1: 'Modelo de película',
       footer2: 'Silver 20',
