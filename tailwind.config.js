@@ -7,7 +7,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: '#d4a474',
+        primary: 'hsl(200.15deg 72% 55.82%)',
       },
       
       transitionDuration: {

@@ -1,13 +1,14 @@
-import { AfterViewInit, Component, HostListener } from '@angular/core';
+import { Component } from '@angular/core';
 import { VideoCard } from '../../../models/video-card.interface';
 import { CommonModule } from '@angular/common';
 import { fadeSlide, queryAnimation } from '../../../animations/transitions.animation';
 import { LazyLoadDirective } from '../../../directives/lazyload.directive';
+import { IntersectionObserveDirective } from '../../../directives/intersection-observe.directive';
 
 @Component({
   selector: 'app-video-card',
   standalone: true,
-  imports: [CommonModule, LazyLoadDirective],
+  imports: [CommonModule, LazyLoadDirective, IntersectionObserveDirective],
   templateUrl: './video-card.component.html',
   styleUrl: './video-card.component.scss',
   animations: [fadeSlide, queryAnimation]

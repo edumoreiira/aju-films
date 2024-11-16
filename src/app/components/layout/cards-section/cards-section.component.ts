@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 import { Card } from '../../../models/card.interface';
+import { IntersectionObserveDirective } from '../../../directives/intersection-observe.directive';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-cards-section',
   standalone: true,
-  imports: [],
+  imports: [IntersectionObserveDirective, CommonModule],
   templateUrl: './cards-section.component.html',
   styleUrl: './cards-section.component.scss'
 })
