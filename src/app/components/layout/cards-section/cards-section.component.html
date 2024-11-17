@@ -5,7 +5,7 @@ bg-gray-200" InterObs obsClass="fade-in" [intersectChild]="true">
         <div class="bg-white flex flex-col sm:items-start items-center sm:gap-6 sm:p-8 gap-4 p-6
         sm:text-start text-center delay-{{$index+1}}">
             <div class="p-4 shadow-md rounded-xl">
-                <i [class]="'fi flex text-primary text-xl ' + card.icon"></i>
+                <i [class]="'fi flex text-primary text-xl ' + card.icon" aria-hidden="true"></i>
             </div>
             <div>
                 <h4 class="font-medium text-xl leading-8">{{card.title}}</h4>
