@@ -85,6 +85,11 @@ export class VideoCardComponent {
     }
   }
 
+  onLoadedVideo(event: Event) {
+    const element = event.target as HTMLElement;
+    element.classList.remove('skeleton');
+  }
+
   
 
 }
