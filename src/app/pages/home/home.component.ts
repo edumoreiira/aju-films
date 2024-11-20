@@ -3,6 +3,7 @@ import { CardsSectionComponent } from "../../components/layout/cards-section/car
 import { VideoCardComponent } from "../../components/layout/video-card/video-card.component";
 import { FooterComponent } from "../../components/layout/footer/footer.component";
 import { IntersectionObserveDirective } from '../../directives/intersection-observe.directive';
+import { PreloadVideosService } from '../../services/preloadVideos/preload-videos.service';
 
 @Component({
   selector: 'app-home',
@@ -13,4 +14,11 @@ import { IntersectionObserveDirective } from '../../directives/intersection-obse
 })
 export class HomeComponent {
 
+  constructor(private preloadService: PreloadVideosService) { }
+
+  preloadVideos() {
+    const videosUrl = ["./videos/residencial.mp4", "./videos/comercial-trabalho.mp4", "./videos/privacidade.mp4"]
+
+    this.preloadService.preloadVideos(videosUrl)
+  }
 }

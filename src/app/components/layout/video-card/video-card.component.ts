@@ -1,14 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { VideoCard } from '../../../models/video-card.interface';
 import { CommonModule } from '@angular/common';
 import { fadeSlide, queryAnimation } from '../../../animations/transitions.animation';
-import { LazyLoadDirective } from '../../../directives/lazyload.directive';
 import { IntersectionObserveDirective } from '../../../directives/intersection-observe.directive';
 
 @Component({
   selector: 'app-video-card',
   standalone: true,
-  imports: [CommonModule, LazyLoadDirective, IntersectionObserveDirective],
+  imports: [CommonModule, IntersectionObserveDirective],
   templateUrl: './video-card.component.html',
   styleUrl: './video-card.component.scss',
   animations: [fadeSlide, queryAnimation]
@@ -20,7 +19,7 @@ export class VideoCardComponent {
       id: 1,
       title: 'Residencial',
       description: 'A aplicação da película trouxe proteção e uma renovação estética ao ambiente, combinando alta durabilidade com um visual moderno. A casa agora conta com um toque de elegância, além de proteção eficiente contra raios UV.',
-      videoUrl: '/videos/residencial.mp4',
+      videoUrl: './videos/residencial.mp4',
       footer1: 'Tempo total de aplicação',
       footer2: '5h 30min',
       barIcon: 'fi-rr-house-chimney',
@@ -31,7 +30,7 @@ export class VideoCardComponent {
       id: 2,
       title: 'Comercial',
       description: 'A fachada do Sicoob foi modernizada com película de proteção solar, proporcionando um visual elegante e moderno, além do conforto térmico e privacidade  para colaboradores e clientes.',
-      videoUrl: '/videos/comercial-trabalho.mp4',
+      videoUrl: './videos/comercial-trabalho.mp4',
       footer1: 'Modelo de película',
       footer2: 'Silver 20',
       barIcon: 'fi-rr-bank',
@@ -42,7 +41,7 @@ export class VideoCardComponent {
       id: 3,
       title: 'Privacidade Total',
       description: 'A película espelhada aplicada na porta do banheiro garante privacidade completa, bloqueando a visão externa sem perder o design moderno. Uma solução prática e elegante para ambientes que precisam de discrição.',
-      videoUrl: '/videos/privacidade.mp4',
+      videoUrl: './videos/privacidade.mp4',
       footer1: 'Modelo de película',
       footer2: 'Espelhado',
       barIcon: 'fi-rr-eye-crossed',
@@ -89,6 +88,7 @@ export class VideoCardComponent {
     const element = event.target as HTMLElement;
     element.classList.remove('skeleton');
   }
+
 
   
 
