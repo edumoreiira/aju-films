@@ -17,7 +17,7 @@ export class HomeComponent {
   constructor(private preloadService: PreloadVideosService) { }
 
   preloadVideos() {
-    const videosUrl = ["./videos/residencial.mp4", "./videos/comercial-trabalho.mp4", "./videos/privacidade.mp4"]
+    const videosUrl = ["./videos/residencial-30.mp4", "./videos/comercial-30.mp4", "./videos/privacidade-30.mp4"]
 
     this.preloadService.preloadVideos(videosUrl)
   }
