@@ -1,5 +1,5 @@
-<div class="grid grid-cols-[repeat(auto-fit,_minmax(300px,_1fr))] m-px rounded-3xl border border-gray-200 overflow-clip gap-px
-bg-gray-200" InterObs obsClass="fade-in" [intersectChild]="true">
+<div class="grid grid-cols-[repeat(auto-fit,_minmax(300px,_1fr))] m-px rounded-3xl border border-stone-200 overflow-clip gap-px
+bg-stone-200" InterObs obsClass="fade-in" [intersectChild]="true">
 
     @for(card of cards; track $index) {
         <div class="bg-white flex flex-col sm:items-start items-center sm:gap-6 sm:p-8 gap-4 p-6
@@ -9,7 +9,7 @@ bg-gray-200" InterObs obsClass="fade-in" [intersectChild]="true">
             </div>
             <div>
                 <h4 class="font-medium text-xl leading-8">{{card.title}}</h4>
-                <p class="text-gray-600">{{card.description}}</p>
+                <p class="text-stone-600">{{card.description}}</p>
             </div>
         </div>
     }
