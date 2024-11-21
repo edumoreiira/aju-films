@@ -1,8 +1,10 @@
-<div class="img-container relative max-h-screen rounded-b-[0em] overflow-hidden">
+<div class="img-container relative max-h-screen rounded-b-[0em]">
     <img src="./images/windows3.webp" alt="Janela de prédio com vista para a cidade"
-    class="absolute building h-full w-full object-cover brightness-[85%] hue-rotate-[-12deg] grayscale-[40%]" (load)="preloadVideos()">
+    class="absolute building h-full w-full object-cover brightness-[85%] hue-rotate-[-12deg] grayscale-[40%]
+    border-white sm:border-b-0 border-b-1" 
+    (load)="preloadVideos()">
 
-    <main id="home" class="c-container z-10 h-full grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <main id="home" class="c-container h-full grid grid-cols-1 lg:grid-cols-2 gap-6">
         <header class="relative text-white self-center flex flex-col items-center text-center -mt-28 md:mt-0 md:text-start md:items-start fade-in">
             <h1 class="text-[3.5rem] xs:text-[4.2rem] font-medium leading-tight max-w-2xl">A proteção que seu ambiente precisa!</h1>
             <a class="bg-stone-50 text-stone-950 py-2 px-6 rounded-full text-lg font-semibold mt-4
@@ -13,15 +15,15 @@
         w-[calc(100%-40px)] sm:w-[calc(100%-80px)] md:max-w-[50%] xl:p-8 p-6 pb-0 md:rounded-tr-none rounded-tr-3xl 
         rounded-tl-3xl flex items-start gap-6 max-h-[145px] sm:max-h-none">
             <div class="flex-1 fade-in delay-1">
-                <h2 class="font-medium xl:text-5xl text-3xl mb-2 text-nowrap">7 anos</h2>
+                <h2 class="font-medium xl:text-5xl text-3xl mb-2">7 anos</h2>
                 <p class="text-stone-600 xl:text-base text-sm">de excelência em aplicação de películas em residências e comércios</p>
             </div>
             <div class="flex-1 fade-in delay-2">
-                <h2 class="font-medium xl:text-5xl text-3xl mb-2 text-nowrap">1.500+</h2>
+                <h2 class="font-medium xl:text-5xl text-3xl mb-2">1.500+</h2>
                 <p class="text-stone-600 xl:text-base text-sm">janelas transformadas com películas de alta performance</p>
             </div>
             <div class="flex-1 fade-in delay-3">
-                <h2 class="font-medium xl:text-5xl text-3xl mb-2 text-nowrap">20+ tipos</h2>
+                <h2 class="font-medium xl:text-5xl text-3xl mb-2">20+ tipos</h2>
                 <p class="text-stone-600 xl:text-base text-sm">de películas para garantir proteção solar, privacidade, segurança e estética.</p>
             </div>
         </div>
