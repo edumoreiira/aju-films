@@ -11,6 +11,8 @@ export const fadeSlide = trigger('fadeSlide', [
     })),
     state('noslide', style({
     })),
+    state('fastnoslide', style({
+    })),
 
     transition('void => right', [
         style({
@@ -59,6 +61,18 @@ export const fadeSlide = trigger('fadeSlide', [
             opacity: 1,
         }))
     ]),
+    transition('fastnoslide => void', [
+        animate('150ms ease-in', style({
+            opacity: 0,
+        }))
+    ]),
+
+    transition('void => fastnoslide', [
+        animate('150ms ease-in', style({
+            opacity: 1,
+        }))
+    ]),
+
 ]);
 
 

@@ -7,7 +7,7 @@
                     <div [@fadeSlide]="'up'">
                         <h2 class="text-2xl font-bold mb-2 md:mb-4">{{card.title}}</h2>
                         <p class="text-stone-600 text-lg mb-6">{{card.description}}</p>
-                        <a class="bg-primary text-white py-2 px-6 text-lg font-medium rounded-full
+                        <a class="bg-primary text-white py-3 px-6 text-lg font-medium rounded-full
                         hover:brightness-105 active:brightness-110 transition"
                         href="https://wa.me/+5579996121414?text=Ol%C3%A1,%20desejo%20solicitar%20um%20or%C3%A7amento!"
                         target="_blank">Solicitar orçamento</a>
@@ -35,6 +35,13 @@
                     backdrop-blur-lg whitespace-nowrap rounded-full text-white
                     opacity-60 text-sm hover:opacity-85 active:opacity-100 transition"
                     >Ver mais no instagram</a>
+                    @if(videoRef.paused === true) {
+                        <button class="absolute right-1/2 bottom-1/2 translate-y-1/2 translate-x-1/2
+                        bg-black p-6 bg-opacity-20 backdrop-blur-[2px] rounded-full transition-opacity hover:opacity-70" 
+                        (click)="videoRef.play()" [@fadeSlide]="'fastnoslide'">
+                            <i class="fi fi-rr-play flex text-x text-white opacity-60"></i>
+                        </button>
+                    }
                 </div>
             </div>
         }
