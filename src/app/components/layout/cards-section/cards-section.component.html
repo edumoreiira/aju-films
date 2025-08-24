@@ -3,10 +3,9 @@ grid-cols-[repeat(auto-fit,_minmax(250px,_1fr))] m-px rounded-3xl border border-
 bg-stone-200" InterObs obsClass="fade-in" [intersectChild]="true">
 
     @for(card of cards; track $index) {
-        <div class="bg-white flex flex-col sm:items-start items-center sm:gap-6 sm:p-8 gap-4 p-6
-        sm:text-start text-center delay-{{$index+1}}">
-            <div class="p-4 shadow-md rounded-xl">
-                <i [class]="'fi flex text-primary text-xl ' + card.icon" aria-hidden="true"></i>
+        <div class="bg-white flex flex-col items-start sm:gap-6 sm:p-8 gap-4 p-6 delay-{{$index+1}}">
+            <div class="sm:p-4 p-3 shadow-md rounded-xl">
+                <i [class]="'fi flex text-primary sm:text-xl text-lg ' + card.icon" aria-hidden="true"></i>
             </div>
             <div>
                 <h2 class="font-medium text-xl leading-8">{{card.title}}</h2>
