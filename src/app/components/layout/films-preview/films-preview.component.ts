@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ImageCompareModule } from 'primeng/imagecompare';
 import { SelectButtonModule } from 'primeng/selectbutton';
+import { Knob } from 'primeng/knob';
 import { Select } from 'primeng/select';
 
 interface Film {
@@ -12,14 +13,15 @@ interface Film {
 @Component({
   selector: 'app-films-preview',
   standalone: true,
-  imports: [ImageCompareModule, SelectButtonModule, FormsModule, Select],
+  imports: [ImageCompareModule, SelectButtonModule, FormsModule, Select, Knob],
   templateUrl: './films-preview.component.html',
   styleUrl: './films-preview.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FilmsPreviewComponent {
-  stateOptions: any[] = [{ label: 'Interior', value: 'interior' },{ label: 'Exterior', value: 'exterior' }];
-  value: string = 'interior';
+  selectOptions: any[] = [{ label: 'Interior', value: 'interior' },{ label: 'Exterior', value: 'exterior' }];
+  selectValue: string = 'interior';
+  knobValue: number = 0;
 
   films: Film[] = [
     { label: 'Modelo xyz', value: 'film1' },

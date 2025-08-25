@@ -1,13 +1,32 @@
 <div class="flex flex-col gap-4 relative">
 
-  <div class="flex sm:flex-row flex-col sm:absolute sm:top-5 sm:left-5 sm:z-10 gap-4 bg-stone-100 sm:bg-black/10 p-3 rounded-2xl">
-    <p-selectbutton [options]="stateOptions" [(ngModel)]="value"
-    optionLabel="label" optionValue="value" aria-labelledby="basic"
-    size="large" [allowEmpty]="false"
-    class="rounded-4xl w-full"/>
+  <div class="flex sm:flex-col flex-col-reverse sm:items-start gap-4 sm:absolute sm:top-5 sm:left-5 sm:z-10">
+    <div class="flex sm:flex-row flex-col gap-4 bg-stone-100 sm:bg-black/20 p-3 rounded-2xl">
+      <p-selectbutton [options]="selectOptions" [(ngModel)]="selectValue"
+      optionLabel="label" optionValue="value" aria-labelledby="basic"
+      size="large" [allowEmpty]="false"
+      class="rounded-4xl w-full"/>
+      <p-select [options]="films" [(ngModel)]="selectedFilm" optionLabel="label" placeholder="Selecione uma película" class="w-65 !rounded-4xl"
+      size="small" />
+    </div>
+    <div class="flex items-center sm:justify-normal justify-between gap-2 bg-black/20 px-3 py-1 rounded-2xl">
+      <button class="sm:p-1.5 p-3 rounded-xl border border-stone-200 text-stone-200 sm:text-normal text-lg
+      enabled:hover:bg-white/20 enabled:active:bg-white/30 disabled:cursor-not-allowed transition-all"
+      [disabled]="knobValue <= 0"
+      (click)="knobValue = knobValue - 100">
+        <i class="flex fi fi-rr-minus-small"></i>
+      </button>
+      
+      <p-knob [(ngModel)]="knobValue" size="50" min="0" max="1000" step="100"
+      textColor="#ffffff" rangeColor="hsl(0deg 0% 100% / 40%)" valueColor="white" valueTemplate="300"/>
 
-    <p-select [options]="films" [(ngModel)]="selectedFilm" optionLabel="label" placeholder="Selecione uma película" class="w-65 !rounded-4xl"
-    size="small" />
+      <button class="sm:p-1.5 p-3 rounded-xl border border-stone-200 text-stone-200 sm:text-normal text-lg
+      enabled:hover:bg-white/20 enabled:active:bg-white/30 disabled:cursor-not-allowed transition-all"
+      [disabled]="knobValue >= 1000"
+      (click)="knobValue = knobValue + 100">
+        <i class="flex fi fi-rr-plus-small"></i>
+      </button>
+    </div>
   </div>
 
 
