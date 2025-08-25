@@ -57,11 +57,19 @@ export class VideoCardComponent {
   }
 
   nextVideoCard() {
-    this.setVideoCard(this.selectedVideoCard + 1);
+    if(this.selectedVideoCard === this.videoCards.length) {
+      this.setVideoCard(1);
+    } else {
+      this.setVideoCard(this.selectedVideoCard + 1);
+    }
   }
 
   previousVideoCard() {
-    this.setVideoCard(this.selectedVideoCard - 1);
+    if(this.selectedVideoCard === 1) {
+      this.setVideoCard(this.videoCards.length);
+    } else {
+      this.setVideoCard(this.selectedVideoCard - 1);
+    }
   }
   
   updateProgress(video: HTMLVideoElement) {
@@ -76,12 +84,7 @@ export class VideoCardComponent {
   }
 
   onVideoEnd() {
-
-    if(this.selectedVideoCard < this.videoCards.length) {
-      this.nextVideoCard(); // go to next video when current video ends
-    } else {
-      this.setVideoCard(1); // loop back to first video when last video ends
-    }
+    this.nextVideoCard();
   }
 
   onLoadedVideo(event: Event) {
