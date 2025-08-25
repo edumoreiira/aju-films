@@ -2,40 +2,72 @@
 
   <div class="flex sm:flex-col flex-col-reverse sm:items-start gap-4 sm:absolute sm:top-5 sm:left-5 sm:z-10">
     <div class="flex sm:flex-row flex-col gap-4 bg-stone-100 sm:bg-black/20 p-3 rounded-2xl">
-      <p-selectbutton [options]="selectOptions" [(ngModel)]="selectValue"
-      optionLabel="label" optionValue="value" aria-labelledby="basic"
-      size="large" [allowEmpty]="false"
-      class="rounded-4xl w-full"/>
-      <p-select [options]="films" [(ngModel)]="selectedFilm" optionLabel="label" placeholder="Selecione uma película" class="w-65 !rounded-4xl"
-      size="small" />
-    </div>
-    <div class="flex items-center sm:justify-normal justify-between gap-2 bg-black/20 px-3 py-1 rounded-2xl">
-      <button class="sm:p-1.5 p-3 rounded-xl border border-stone-200 text-stone-200 sm:text-normal text-lg
-      enabled:hover:bg-white/20 enabled:active:bg-white/30 disabled:cursor-not-allowed transition-all"
-      [disabled]="knobValue <= 0"
-      (click)="knobValue = knobValue - 100">
-        <i class="flex fi fi-rr-minus-small"></i>
-      </button>
-      
-      <p-knob [(ngModel)]="knobValue" size="50" min="0" max="1000" step="100"
-      textColor="#ffffff" rangeColor="hsl(0deg 0% 100% / 40%)" valueColor="white" valueTemplate="300"/>
+        @if(selectedFilm?.value !== 'jateado-fosco' && selectedFilm?.value !== 'jateado-leitoso') {
+        <p-selectbutton [options]="selectOptions" [(ngModel)]="currentLocation"
+        optionLabel="label" optionValue="value" aria-labelledby="basic"
+        size="large" [allowEmpty]="false"
+        class="rounded-4xl w-full"/>
+      }
+        <p-select [options]="films" [(ngModel)]="selectedFilm" optionLabel="label" placeholder="Selecione uma película" class="w-65 !rounded-4xl"
+        size="small"
+        (ngModelChange)="onFilmChange($event)" />
+      </div>
 
-      <button class="sm:p-1.5 p-3 rounded-xl border border-stone-200 text-stone-200 sm:text-normal text-lg
-      enabled:hover:bg-white/20 enabled:active:bg-white/30 disabled:cursor-not-allowed transition-all"
-      [disabled]="knobValue >= 1000"
-      (click)="knobValue = knobValue + 100">
-        <i class="flex fi fi-rr-plus-small"></i>
-      </button>
-    </div>
+      @if(selectedFilm?.value === 'g') {
+       <!-- medidor de tonalidade -->
+       <div class="sm:flex hidden items-center sm:justify-normal justify-between gap-6 bg-black/20 px-3 py-1 rounded-2xl">
+         <button class="sm:p-1.5 p-3 rounded-xl border border-stone-200 text-stone-200 sm:text-normal text-lg
+         enabled:hover:bg-white/20 enabled:active:bg-white/30 disabled:cursor-not-allowed transition-all"
+         [disabled]="knobValue <= 0"
+         (click)="knobValue = knobValue - 1">
+           <i class="flex fi fi-rr-minus-small"></i>
+         </button>
+         
+         <p-knob [(ngModel)]="knobValue" size="60" min="0" max="4" step="1"
+         textColor="#ffffff" rangeColor="hsl(0deg 0% 100% / 40%)" valueColor="white" [valueTemplate]="knobLabel"/>
+   
+         <button class="sm:p-1.5 p-3 rounded-xl border border-stone-200 text-stone-200 sm:text-normal text-lg
+         enabled:hover:bg-white/20 enabled:active:bg-white/30 disabled:cursor-not-allowed transition-all"
+         [disabled]="knobValue >= 4"
+         (click)="knobValue = knobValue + 1">
+           <i class="flex fi fi-rr-plus-small"></i>
+         </button>
+       </div>
+       <!-- medidor de tonalidade -->
+     }
   </div>
 
+  <div class="relative">
+    <p-imagecompare class="rounded-3xl sm:h-auto h-[28rem] block">
+      <ng-template #left>
+          <img class="sm:object-fill object-cover" [src]="leftImageUrl" />
+      </ng-template>
+      <ng-template #right>
+          <img class="sm:object-fill object-cover" [src]="rightImageUrl" />
+      </ng-template>
+    </p-imagecompare>
+    @if(selectedFilm?.value === 'g') {
+      <!-- medidor de tonalidade -->
+      <div class="flex sm:hidden items-center sm:justify-normal justify-between gap-6 bg-black/20 px-3 py-1 rounded-2xl
+      absolute top-4 left-1/2 -translate-x-1/2">
+        <button class="p-2 rounded-xl border border-stone-200 text-stone-200 sm:text-normal text-lg
+        enabled:hover:bg-white/20 enabled:active:bg-white/30 disabled:cursor-not-allowed transition-all"
+        [disabled]="knobValue <= 0"
+        (click)="knobValue = knobValue - 1">
+          <i class="flex fi fi-rr-minus-small"></i>
+        </button>
 
-  <p-imagecompare class="rounded-3xl h-full block">
-    <ng-template #left>
-        <img src="https://primefaces.org/cdn/primevue/images/compare/island1.jpg" />
-    </ng-template>
-    <ng-template #right>
-        <img src="https://primefaces.org/cdn/primevue/images/compare/island2.jpg" />
-    </ng-template>
-  </p-imagecompare>
+        <p-knob [(ngModel)]="knobValue" size="50" min="0" max="4" step="1"
+        textColor="#ffffff" rangeColor="hsl(0deg 0% 100% / 40%)" valueColor="white" [valueTemplate]="knobLabel"/>
+
+        <button class="p-2 rounded-xl border border-stone-200 text-stone-200 sm:text-normal text-lg
+        enabled:hover:bg-white/20 enabled:active:bg-white/30 disabled:cursor-not-allowed transition-all"
+        [disabled]="knobValue >= 4"
+        (click)="knobValue = knobValue + 1">
+          <i class="flex fi fi-rr-plus-small"></i>
+        </button>
+      </div>
+      <!-- medidor de tonalidade -->
+    }
+  </div>
 </div>

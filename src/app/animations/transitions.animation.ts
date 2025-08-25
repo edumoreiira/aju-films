@@ -1,21 +1,11 @@
 import { trigger, transition, style, animate, state, animateChild, group, query, AnimationTriggerMetadata } from "@angular/animations";
 
-
-
-
-
-
-
 export const fadeTrigger: AnimationTriggerMetadata = trigger('fadeTrigger', [
   transition('* => *', [
     style({ opacity: 0, transform: 'translateY(40px)' }),
     animate('400ms ease-out', style({ opacity: 1, transform: 'translateY(0)' }))
   ])
 ]);
-
-
-
-
 
 export const fadeSlide = trigger('fadeSlide', [
     // Definindo os estados
