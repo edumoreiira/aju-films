@@ -1,0 +1,23 @@
+::ng-deep {
+  .p-selectbutton {
+    --p-selectbutton-border-radius: .65rem;
+    
+    .p-togglebutton-content{
+      padding-inline: 1rem;
+    }
+
+    .p-togglebutton-checked .p-togglebutton-content{
+      background-color: white;
+      border-radius: .5rem;
+      box-shadow: 0 1px 3px 1px hsla(0, 0%, 0%, 0.063);
+    }
+  }
+
+  .p-select {
+    --p-select-border-radius: .65rem;
+    --p-select-sm-font-size: 1rem;
+    .p-select-label{
+      font-weight: 500;
+    }
+  }
+}

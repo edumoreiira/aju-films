@@ -1,0 +1,22 @@
+<div class="flex flex-col gap-4 relative">
+
+  <div class="flex sm:flex-row flex-col sm:absolute sm:top-5 sm:left-5 sm:z-10 gap-4 bg-stone-100 sm:bg-black/10 p-3 rounded-2xl">
+    <p-selectbutton [options]="stateOptions" [(ngModel)]="value"
+    optionLabel="label" optionValue="value" aria-labelledby="basic"
+    size="large" [allowEmpty]="false"
+    class="rounded-4xl w-full"/>
+
+    <p-select [options]="films" [(ngModel)]="selectedFilm" optionLabel="label" placeholder="Selecione uma película" class="w-65 !rounded-4xl"
+    size="small" />
+  </div>
+
+
+  <p-imagecompare class="rounded-3xl h-full block">
+    <ng-template #left>
+        <img src="https://primefaces.org/cdn/primevue/images/compare/island1.jpg" />
+    </ng-template>
+    <ng-template #right>
+        <img src="https://primefaces.org/cdn/primevue/images/compare/island2.jpg" />
+    </ng-template>
+  </p-imagecompare>
+</div>

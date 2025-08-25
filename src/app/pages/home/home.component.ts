@@ -6,11 +6,12 @@ import { IntersectionObserveDirective } from '../../directives/intersection-obse
 import { PreloadVideosService } from '../../services/preloadVideos/preload-videos.service';
 import { NgClass } from '@angular/common';
 import { fadeTrigger } from '../../animations/transitions.animation';
+import { FilmsPreviewComponent } from "../../components/layout/films-preview/films-preview.component";
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CardsSectionComponent, VideoCardComponent, FooterComponent, IntersectionObserveDirective, NgClass],
+  imports: [CardsSectionComponent, VideoCardComponent, FooterComponent, IntersectionObserveDirective, NgClass, FilmsPreviewComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
   animations: [fadeTrigger]
