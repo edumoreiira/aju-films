@@ -21,13 +21,13 @@ type Place = 'exterior' | 'interior' | 'cozinha' | 'escritorio';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FilmsPreviewComponent {
-  selectOptions: any[] = [{ label: 'Interior', value: 'interior' },{ label: 'Exterior', value: 'exterior' }];
+  selectOptions: any[] = [{ label: 'Interno', value: 'interior' },{ label: 'Externo', value: 'exterior' }];
   knobValue: number = 0;
   films: Film[] = [
-    { label: 'Tonalidades (G)', value: 'g' },
+    { label: 'Fumê', value: 'g' },
     { label: 'Espelhado', value: 'espelhado' },
     { label: 'Jateado Fosco', value: 'jateado-fosco' },
-    { label: 'Jateado Leitoso', value: 'jateado-leitoso' },
+    { label: 'Branco Leitoso', value: 'jateado-leitoso' },
     { label: 'Blackout', value: 'blackout' },
   ];
   selectedFilm: Film | undefined = undefined;

@@ -29,7 +29,7 @@ export class HomeComponent implements OnInit {
       smallText: "janelas transformadas com películas de alta performance"
     },
     {
-      largeText: "20 tipos +",
+      largeText: "10 tipos +",
       smallText: "de películas para garantir proteção solar, privacidade, segurança e estética."
     }
   ]
@@ -47,7 +47,7 @@ export class HomeComponent implements OnInit {
         const current = this.selectedHeaderTextIndex();
         const next = (current + 1) % this.headerTexts.length;
         this.selectedHeaderTextIndex.set(next);
-      }, 4000);
+      }, 6000);
     })
   }
 
