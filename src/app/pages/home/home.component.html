@@ -6,17 +6,17 @@
 
     <main id="home" class="c-container h-full grid grid-cols-1 lg:grid-cols-2 gap-6">
         <header class="relative text-white self-center flex flex-col items-center text-center -mt-28 md:mt-0 md:text-start md:items-start fade-in">
-            <div class="py-1 px-3 bg-black/80 flex items-center gap-2 text-sm font-semibold rounded-lg">
+            <div class="py-1 px-3 bg-black/40 mb-3 flex items-center gap-2 text-sm font-semibold rounded-lg">
                 <i class="fi fi-ss-house-building flex"></i>
                 Apenas Residencial e Comercial!
             </div>
             <h1 class="text-4xl xs:text-5xl sm:text-[4.1rem] font-semibold leading-tight max-w-2xl mb-4">A proteção que seu ambiente precisa!</h1>
             <p class="w-[calc(100%-40px)] sm:w-auto text-lg mb-4">Sofrendo com calor excessivo? <span class="font-semibold">Temos a solução ideal para você.</span></p>
-            <p class="w-[calc(100%-40px)] sm:w-auto text-lg mb-4">Blackout • Espelhada • Segurança • Película Fumê de Controle Solar • Térmica</p>
-            <a class="flex items-center gap-2 bg-stone-50 text-stone-950 py-2 px-6 rounded-full text-lg font-semibold mt-4
+            <p class="w-[calc(100%-40px)] sm:w-auto text-sm mb-4 min-[340px]:block hidden">Blackout • Espelhada • Segurança • Película Fumê de Controle Solar • Térmica</p>
+            <a class="flex items-center gap-2 bg-stone-50 text-stone-950 py-2 px-6 rounded-full text-lg font-semibold mt-4 relative
             hover:opacity-90 active:opacity-85 transition-opacity"
             href="https://wa.me/+5579996121414?text=Ol%C3%A1,%20desejo%20solicitar%20um%20or%C3%A7amento!" target="_blank">
-                <i class="fi fi-brands-whatsapp flex"></i>
+                <i class="fi fi-brands-whatsapp flex text-green-500"></i>
                 Fazer orçamento
             </a>
         </header>
@@ -25,11 +25,11 @@
         rounded-t-[2rem] flex sm:flex-row flex-col sm:items-start items-center sm:gap-6 gap-2 h-[130px] xs:h-[144px] sm:h-[auto] sm:max-h-none">
             <div class="flex-1 fade-in delay-1 sm:block hidden">
                 <h2 class="font-medium 2xl:text-5xl xl:text-4xl xs:text-3xl text-2xl mb-2">7 anos</h2>
-                <p class="text-stone-600 xl:text-base text-sm">de excelência em aplicação de películas em residências e comércios</p>
+                <p class="text-stone-600 xl:text-base text-sm">de excelência em aplicação de películas em residências e comércios.</p>
             </div>
             <div class="flex-1 fade-in delay-2 sm:block hidden">
                 <h2 class="font-medium 2xl:text-5xl xl:text-4xl xs:text-3xl text-2xl mb-2">1.500+</h2>
-                <p class="text-stone-600 xl:text-base text-sm">janelas transformadas com películas de alta performance</p>
+                <p class="text-stone-600 xl:text-base text-sm">janelas transformadas com películas de alta performance.</p>
             </div>
             <div class="flex-1 fade-in delay-3 sm:block hidden">
                 <h2 class="font-medium 2xl:text-5xl xl:text-4xl xs:text-3xl text-2xl mb-2">10+ tipos</h2>
@@ -59,11 +59,11 @@
     </main>
 </div>
 
-<section class="c-container py-32 flex sm:flex-row flex-col sm:gap-12 gap-4 items-center text-stone-600">
+<section class="sm:flex hidden c-container py-32 sm:flex-row flex-col sm:gap-12 gap-4 items-center text-stone-600">
     <h1 class="text-4xl flex-1 sm:text-start text-center" InterObs obsClass="fade-in"><span class="text-stone-900 font-medium">
         Priorizamos qualidade,</span> garantindo a confiança dos nossos clientes em cada serviço.
     </h1>
-    <p class="flex-1 delay-1 sm:block hidden" InterObs obsClass="fade-in" rootMargin="-140px">Oferecemos películas residenciais e comerciais que garantem proteção solar, aumentam a privacidade e 
+    <p class="flex-1 delay-1" InterObs obsClass="fade-in" rootMargin="-140px">Oferecemos películas residenciais e comerciais que garantem proteção solar, aumentam a privacidade e 
         reduzem o consumo de energia. Nossas soluções melhoram o conforto térmico e protegem seu espaço
          dos danos UV. A escolha ideal para quem busca mais qualidade de vida e economia.
     </p>
@@ -71,14 +71,21 @@
 
 <section id="films-preview" class="overflow-hidden">
     <div class="c-container py-32">
+        <div class="flex flex-col items-center gap-4 max-w-3xl text-center mx-auto mb-16">
+            <h1 class="text-4xl text-stone-600" InterObs obsClass="fade-in">
+                <span class="text-stone-900 font-medium">Simule nossas películas</span> e veja, na prática.
+            </h1>
+            <p class="text-stone-600 max-w-xl delay-1" InterObs obsClass="fade-in" rootMargin="-140px"
+            >Utilize o simulador de películas para visualizar as opções disponíveis, podendo comparar o resultado antes de escolher.</p>
+        </div>
         <app-films-preview/>
     </div>
 </section>
 
 <section id="beneficios" class="bg-stone-100 overflow-hidden">
     <div class="c-container py-32">
-        <h1 class="font-normal text-4xl max-w-2xl sm:text-center text-start mx-auto text-stone-600 mb-16" InterObs obsClass="fade-in">
-            <span class="text-stone-900">Oferecemos modernidade,</span> com produtos e serviços de excelência</h1>
+        <h1 class="font-normal text-4xl max-w-2xl text-center mx-auto text-stone-600 mb-16" InterObs obsClass="fade-in">
+        <span class="text-stone-900">Oferecemos modernidade,</span> com produtos e serviços de excelência.</h1>
         <app-cards-section/>
     </div>
 </section>
@@ -86,7 +93,7 @@
 <section id="servicos" class="overflow-hidden">
     <div class="c-container py-32">
         <h1 class="font-normal text-4xl max-w-2xl text-center mx-auto text-stone-600 mb-16" InterObs obsClass="fade-in">
-            Explore nossos projetos e veja como unimos <span class="text-stone-900">funcionalidade e design em cada aplicação</span>
+            Explore nossos projetos e veja como unimos <span class="text-stone-900">funcionalidade e design em cada aplicação.</span>
         </h1>
         <app-video-card/>
     </div>

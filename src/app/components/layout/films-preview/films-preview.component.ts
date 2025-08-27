@@ -4,6 +4,7 @@ import { ImageCompareModule } from 'primeng/imagecompare';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { Knob } from 'primeng/knob';
 import { Select } from 'primeng/select';
+import { NgClass } from '@angular/common';
 
 interface Film {
     label: string;
@@ -15,7 +16,7 @@ type Place = 'exterior' | 'interior' | 'cozinha' | 'escritorio';
 @Component({
   selector: 'app-films-preview',
   standalone: true,
-  imports: [ImageCompareModule, SelectButtonModule, FormsModule, Select, Knob],
+  imports: [ImageCompareModule, SelectButtonModule, FormsModule, Select, Knob, NgClass],
   templateUrl: './films-preview.component.html',
   styleUrl: './films-preview.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -31,6 +32,8 @@ export class FilmsPreviewComponent {
     { label: 'Blackout', value: 'blackout' },
   ];
   selectedFilm: Film | undefined = undefined;
+
+  rangePosition = 50;
 
   currentLocation: Place = 'interior';
 

@@ -1,5 +1,4 @@
 <div class="flex flex-col gap-4 relative">
-
   <div class="flex sm:flex-col flex-col-reverse sm:items-start gap-4 sm:absolute sm:top-5 sm:left-5 sm:z-10">
     <div class="flex sm:flex-row flex-col gap-4 bg-stone-100 sm:bg-black/20 p-3 rounded-2xl">
         @if(selectedFilm?.value !== 'jateado-fosco' && selectedFilm?.value !== 'jateado-leitoso') {
@@ -36,14 +35,15 @@
        <!-- medidor de tonalidade -->
      }
   </div>
-
   <div class="relative">
-    <p-imagecompare class="rounded-3xl sm:h-auto h-[28rem] block">
+    <p-imagecompare class="rounded-3xl sm:h-auto h-[28rem] block" >
       <ng-template #left>
-          <img class="sm:object-fill object-cover" [src]="leftImageUrl" />
+          <img class="sm:object-fill object-cover" [src]="leftImageUrl"
+          [ngClass]="{ 'object-left': selectedFilm?.value === 'jateado-leitoso' }" />
       </ng-template>
       <ng-template #right>
-          <img class="sm:object-fill object-cover" [src]="rightImageUrl" />
+          <img class="sm:object-fill object-cover" [src]="rightImageUrl"
+          [ngClass]="{ 'object-left': selectedFilm?.value === 'jateado-leitoso' }" />
       </ng-template>
     </p-imagecompare>
     @if(selectedFilm?.value === 'g') {

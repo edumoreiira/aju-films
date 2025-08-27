@@ -5,8 +5,7 @@ import { IntersectionObserveDirective } from '../../../directives/intersection-o
   selector: 'app-footer',
   standalone: true,
   imports: [IntersectionObserveDirective],
-  templateUrl: './footer.component.html',
-  styleUrl: './footer.component.scss'
+  templateUrl: './footer.component.html'
 })
 export class FooterComponent {
 
