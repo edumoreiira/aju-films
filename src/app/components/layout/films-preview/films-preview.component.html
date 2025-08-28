@@ -23,12 +23,12 @@
            <i class="flex fi fi-rr-minus-small"></i>
          </button>
          
-         <p-knob [(ngModel)]="knobValue" size="60" min="0" max="4" step="1"
+         <p-knob [(ngModel)]="knobValue" size="60" min="0" max="3" step="1"
          textColor="#ffffff" rangeColor="hsl(0deg 0% 100% / 40%)" valueColor="white" [valueTemplate]="knobLabel"/>
    
          <button class="sm:p-1.5 p-3 rounded-xl border border-stone-200 text-stone-200 sm:text-normal text-lg
          enabled:hover:bg-white/20 enabled:active:bg-white/30 disabled:cursor-not-allowed transition-all"
-         [disabled]="knobValue >= 4"
+         [disabled]="knobValue >= 3"
          (click)="knobValue = knobValue + 1">
            <i class="flex fi fi-rr-plus-small"></i>
          </button>
@@ -37,6 +37,7 @@
      }
   </div>
   <div class="relative">
+
     @if(userHasInteracted === false) {
       <div class="px-3 py-1.5 rounded-xl bg-black/30 text-white absolute top-1/2 left-1/2 -translate-x-1/2 translate-y-1/2 z-10
       flex flex-col items-center pointer-events-none" @instructionsPopUp>
@@ -44,14 +45,23 @@
         <i class="fi fi-sr-arrows-alt-h flex animate-ping"></i>
       </div>
     }
+
+    <div class="px-3 py-1.5 rounded-xl bg-black/30 text-white absolute md:bottom-5 md:right-5 bottom-3 right-3 z-10
+    flex items-center gap-2 md:text-sm text-xs">
+      <i class="fi fi-sr-triangle-warning flex text-yellow-400"></i>
+      <span>Imagens Ilustrativas</span>
+    </div>
+
+
+    @let leitosoSelected = selectedFilm?.value === 'jateado-leitoso' || selectedFilm === undefined;
     <p-imagecompare class="rounded-3xl sm:h-auto h-[28rem] block" >
       <ng-template #left>
           <img class="sm:object-fill object-cover" [src]="leftImageUrl"
-          [ngClass]="{ 'object-left': selectedFilm?.value === 'jateado-leitoso' }" />
+          [ngClass]="{ 'object-left': leitosoSelected }" />
       </ng-template>
       <ng-template #right>
           <img class="sm:object-fill object-cover" [src]="rightImageUrl"
-          [ngClass]="{ 'object-left': selectedFilm?.value === 'jateado-leitoso' }" />
+          [ngClass]="{ 'object-left': leitosoSelected }" />
       </ng-template>
     </p-imagecompare>
     @if(selectedFilm?.value === 'g') {
@@ -65,12 +75,12 @@
           <i class="flex fi fi-rr-minus-small"></i>
         </button>
 
-        <p-knob [(ngModel)]="knobValue" size="50" min="0" max="4" step="1"
+        <p-knob [(ngModel)]="knobValue" size="50" min="0" max="3" step="1"
         textColor="#ffffff" rangeColor="hsl(0deg 0% 100% / 40%)" valueColor="white" [valueTemplate]="knobLabel"/>
 
         <button class="p-2 rounded-xl border border-stone-200 text-stone-200 sm:text-normal text-lg
         enabled:hover:bg-white/20 enabled:active:bg-white/30 disabled:cursor-not-allowed transition-all"
-        [disabled]="knobValue >= 4"
+        [disabled]="knobValue >= 3"
         (click)="knobValue = knobValue + 1">
           <i class="flex fi fi-rr-plus-small"></i>
         </button>

@@ -41,6 +41,7 @@ export class FilmsPreviewComponent implements AfterViewInit {
     { label: 'Branco Leitoso', value: 'jateado-leitoso' },
     { label: 'Blackout', value: 'blackout' },
     { label: 'Segurança', value: 'seguranca' },
+    { label: 'Transparente Térmica', value: 'transparente-termica' }
   ];
   selectedFilm: Film | undefined = undefined;
 
@@ -49,14 +50,12 @@ export class FilmsPreviewComponent implements AfterViewInit {
   get knobLabel(): string {
     switch(this.knobValue) {
       case 0:
-        return 'G-70';
-      case 1:
         return 'G-50';
-      case 2:
+      case 1:
         return 'G-35';
-      case 3:
+      case 2:
         return 'G-20';
-      case 4:
+      case 3:
         return 'G-5';
       default:
         return '0';
@@ -75,20 +74,20 @@ export class FilmsPreviewComponent implements AfterViewInit {
       "interior": {
         "espelhado": "images/window-preview/interior-35.webp",
         "blackout": "images/window-preview/interior-100.webp",
+        "transparente-termica": "images/window-preview/g70-interior.webp",
         "G-5": "images/window-preview/interior-50.webp",
         "G-20": "images/window-preview/interior-50.webp",
         "G-35": "images/window-preview/interior-35.webp",
         "G-50": "images/window-preview/interior-35.webp",
-        "G-70": "images/window-preview/g70-interior.webp",
       },
       "exterior": {
         "espelhado": "images/window-preview/exterior-espelhado.webp",
         "blackout": "images/window-preview/g5-exterior.webp",
+        "transparente-termica": "images/window-preview/g70-exterior.webp",
         "G-5": "images/window-preview/g5-exterior.webp",
         "G-20": "images/window-preview/g20-exterior.webp",
         "G-35": "images/window-preview/g35-exterior.webp",
         "G-50": "images/window-preview/g50-exterior.webp",
-        "G-70": "images/window-preview/g70-exterior.webp",
       },
       "cozinha": 'images/window-preview/cozinha-jateado-branco.webp',
       "escritorio": 'images/window-preview/escritorio-jateada-fosca2.webp',

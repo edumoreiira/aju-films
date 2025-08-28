@@ -22,8 +22,6 @@ export class PreloadVideosService {
 
       //resolve a promise depois de o video carregar.
       video.addEventListener('progress', (event) => resolve());
-
-
       video.addEventListener('error', (err) => reject(err));
     })
   }
