@@ -11,7 +11,7 @@ interface Film {
     value: string;
 }
 
-type Place = 'exterior' | 'interior' | 'cozinha' | 'escritorio';
+type Place = 'exterior' | 'interior' | 'cozinha' | 'escritorio' | 'playground';
 
 @Component({
   selector: 'app-films-preview',
@@ -30,12 +30,11 @@ export class FilmsPreviewComponent {
     { label: 'Jateado Fosco', value: 'jateado-fosco' },
     { label: 'Branco Leitoso', value: 'jateado-leitoso' },
     { label: 'Blackout', value: 'blackout' },
+    { label: 'Segurança', value: 'seguranca' },
   ];
   selectedFilm: Film | undefined = undefined;
 
-  rangePosition = 50;
-
-  currentLocation: Place = 'interior';
+  currentLocation: Place = 'cozinha';
 
   get knobLabel(): string {
     switch(this.knobValue) {
@@ -56,20 +55,34 @@ export class FilmsPreviewComponent {
 
   imagesUrl = {
     left: {
-      "interior": "images/interior.png",
-      "exterior": "images/exterior.png",
-      "cozinha": "images/cozinha.png",
-      "escritorio": "images/escritorio.png"
+      "interior": "images/window-preview/interior.webp",
+      "exterior": "images/window-preview/exterior.webp",
+      "cozinha": "images/window-preview/cozinha.webp",
+      "escritorio": "images/window-preview/escritorio.webp",
+      "playground": "images/window-preview/playground.webp"
     },
     right: {
       "interior": {
-        "espelhado": "images/interior-50.png"
+        "espelhado": "images/window-preview/interior-35.webp",
+        "blackout": "images/window-preview/interior-100.webp",
+        "G-5": "images/window-preview/interior-50.webp",
+        "G-20": "images/window-preview/interior-50.webp",
+        "G-35": "images/window-preview/interior-35.webp",
+        "G-50": "images/window-preview/interior-35.webp",
+        "G-70": "images/window-preview/g70-interior.webp",
       },
       "exterior": {
-        "espelhado": "images/exterior-espelhado.png"
+        "espelhado": "images/window-preview/exterior-espelhado.webp",
+        "blackout": "images/window-preview/g5-exterior.webp",
+        "G-5": "images/window-preview/g5-exterior.webp",
+        "G-20": "images/window-preview/g20-exterior.webp",
+        "G-35": "images/window-preview/g35-exterior.webp",
+        "G-50": "images/window-preview/g50-exterior.webp",
+        "G-70": "images/window-preview/g70-exterior.webp",
       },
-      "cozinha": 'images/cozinha-jateado-branco.png',
-      "escritorio": 'images/escritorio-jateado-fosco.png'
+      "cozinha": 'images/window-preview/cozinha-jateado-branco.webp',
+      "escritorio": 'images/window-preview/escritorio-jateada-fosca2.webp',
+      "playground": 'images/window-preview/playground-seguranca.webp'
     }
   }
 
@@ -78,25 +91,40 @@ export class FilmsPreviewComponent {
   }
 
   get rightImageUrl(): string {
-    if(this.currentLocation === 'cozinha') {
-      return this.imagesUrl.right.cozinha;
-    } else if(this.currentLocation === 'escritorio') {
-      return this.imagesUrl.right.escritorio;
+    switch (this.currentLocation) {
+      case 'cozinha':
+        return this.imagesUrl.right.cozinha;
+      case 'escritorio':
+        return this.imagesUrl.right.escritorio;
+      case 'playground':
+        return this.imagesUrl.right.playground;
     }
 
     const key = (this.imagesUrl.right[this.currentLocation] as { [key: string]: string })
+
+    if(this.selectedFilm?.value === 'g') {
+      const selected_g_film = this.knobLabel
+      return key[selected_g_film];
+    }
 
     return key[this.selectedFilm?.value || 'espelhado'];
   }
 
 
   onFilmChange(film: Film) {
-    if (film.value === 'jateado-fosco') {
-      this.currentLocation = 'escritorio';
-    } else if (film.value === 'jateado-leitoso') {
-      this.currentLocation = 'cozinha';
-    } else {
-      this.currentLocation = 'exterior';
+    switch (film.value) {
+      case 'jateado-fosco':
+        this.currentLocation = 'escritorio';
+        break;
+      case 'jateado-leitoso':
+        this.currentLocation = 'cozinha';
+        break;
+      case 'seguranca':
+      this.currentLocation = 'playground';
+        break;
+      default:
+        this.currentLocation = 'exterior';
+        break;
     }
   }
 
