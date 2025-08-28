@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, inject, Renderer2, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ImageCompareModule } from 'primeng/imagecompare';
 import { SelectButtonModule } from 'primeng/selectbutton';
@@ -21,9 +21,12 @@ type Place = 'exterior' | 'interior' | 'cozinha' | 'escritorio' | 'playground';
   styleUrl: './films-preview.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class FilmsPreviewComponent {
+export class FilmsPreviewComponent implements AfterViewInit {
+  private renderer = inject(Renderer2);
+  private el = inject(ElementRef);
   selectOptions: any[] = [{ label: 'Interno', value: 'interior' },{ label: 'Externo', value: 'exterior' }];
   knobValue: number = 0;
+  userHasInteracted = false;
   films: Film[] = [
     { label: 'Fumê', value: 'g' },
     { label: 'Espelhado', value: 'espelhado' },
@@ -110,8 +113,20 @@ export class FilmsPreviewComponent {
     return key[this.selectedFilm?.value || 'espelhado'];
   }
 
+  ngAfterViewInit(): void {
+    const element = this.el.nativeElement;
+    const range = element.querySelector('.p-imagecompare-slider');
+    this.renderer.listen(range, 'input', (event) => {
+      const value = parseInt((event.target as HTMLInputElement).value);
+      if (value >= 60 || value <= 40) { // Check if the user has interacted with the slider
+        this.userHasInteracted = true;
+      }
+    });
+  }
+
 
   onFilmChange(film: Film) {
+    this.userHasInteracted = false;
     switch (film.value) {
       case 'jateado-fosco':
         this.currentLocation = 'escritorio';
@@ -127,45 +142,6 @@ export class FilmsPreviewComponent {
         break;
     }
   }
-
-
-
-  // get imageUrl(): string {
-  //   switch(this.selectValue) {
-  //     case 'interior':
-  //       return 'images/interior.png';
-  //     case 'exterior':
-  //       return 'images/exterior.png';
-  //     default:
-  //       return 'images/interior.png';
-  //   }
-  // }
-
-  // get leftImageUrl(): string {
-  //   switch(this.selectValue) {
-  //     case 'interior':
-  //       return 'images/interior.png';
-  //     case 'exterior':
-  //       return 'images/exterior.png';
-  //     default:
-  //       return 'images/interior.png';
-  //   }
-  // }
-
-  // get rightImageUrl(): string {
-  //   switch(this.selectValue) {
-  //     case 'interior':
-  //       return 'images/interior-refletida.png';
-  //     case 'exterior':
-  //       return 'images/exterior-refletida.png';
-  //     default:
-  //       return 'images/interior-refletida.png';
-  //   }
-  // }
-
-
-
-
 
 
 }

@@ -36,6 +36,13 @@
      }
   </div>
   <div class="relative">
+    @if(userHasInteracted === false) {
+      <div class="px-3 py-1.5 rounded-xl bg-black/30 text-white absolute top-1/2 left-1/2 -translate-x-1/2 translate-y-1/2 z-10
+      flex flex-col items-center pointer-events-none">
+        <span>Deslize para comparar</span>
+        <i class="fi fi-sr-arrows-alt-h flex animate-ping"></i>
+      </div>
+    }
     <p-imagecompare class="rounded-3xl sm:h-auto h-[28rem] block" >
       <ng-template #left>
           <img class="sm:object-fill object-cover" [src]="leftImageUrl"
