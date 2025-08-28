@@ -1,11 +1,11 @@
 <div class="flex flex-col gap-4 relative">
   <div class="flex sm:flex-col flex-col-reverse sm:items-start gap-4 sm:absolute sm:top-5 sm:left-5 sm:z-10">
-    <div class="flex sm:flex-row flex-col gap-4 bg-stone-100 sm:bg-black/20 p-3 rounded-2xl">
+    <div class="flex sm:flex-row flex-col bg-stone-100 sm:bg-black/20 p-3 rounded-2xl">
         @if(selectedFilm?.value !== 'jateado-fosco' && selectedFilm?.value !== 'jateado-leitoso' && selectedFilm !== undefined) {
         <p-selectbutton [options]="selectOptions" [(ngModel)]="currentLocation"
         optionLabel="label" optionValue="value" aria-labelledby="basic"
         size="large" [allowEmpty]="false"
-        class="rounded-4xl w-full"/>
+        class="sm:mb-0 mb-4 sm:mr-4 mr-0 rounded-4xl w-full" @slideXY/>
       }
         <p-select [options]="films" [(ngModel)]="selectedFilm" optionLabel="label" placeholder="Selecione uma película" class="w-65 !rounded-4xl"
         size="small"
@@ -14,11 +14,12 @@
 
       @if(selectedFilm?.value === 'g') {
        <!-- medidor de tonalidade -->
-       <div class="sm:flex hidden items-center sm:justify-normal justify-between gap-6 bg-black/20 px-3 py-1 rounded-2xl">
+       <div class="sm:flex hidden items-center sm:justify-normal justify-between gap-6 bg-black/20 px-3 py-1 rounded-2xl"
+       @knobPopUp>
          <button class="sm:p-1.5 p-3 rounded-xl border border-stone-200 text-stone-200 sm:text-normal text-lg
-         enabled:hover:bg-white/20 enabled:active:bg-white/30 disabled:cursor-not-allowed transition-all"
+         enabled:hover:bg-white/20 enabled:active:bg-white/30 disabled:cursor-not-allowed transition-all" 
          [disabled]="knobValue <= 0"
-         (click)="knobValue = knobValue - 1">
+         (click)="knobValue = knobValue - 1" >
            <i class="flex fi fi-rr-minus-small"></i>
          </button>
          
@@ -38,7 +39,7 @@
   <div class="relative">
     @if(userHasInteracted === false) {
       <div class="px-3 py-1.5 rounded-xl bg-black/30 text-white absolute top-1/2 left-1/2 -translate-x-1/2 translate-y-1/2 z-10
-      flex flex-col items-center pointer-events-none">
+      flex flex-col items-center pointer-events-none" @instructionsPopUp>
         <span>Deslize para comparar</span>
         <i class="fi fi-sr-arrows-alt-h flex animate-ping"></i>
       </div>
@@ -56,7 +57,7 @@
     @if(selectedFilm?.value === 'g') {
       <!-- medidor de tonalidade -->
       <div class="flex sm:hidden items-center sm:justify-normal justify-between gap-6 bg-black/20 px-3 py-1 rounded-2xl
-      absolute top-4 left-1/2 -translate-x-1/2">
+      absolute top-4 left-1/2 -translate-x-1/2" @knobPopUpMobile>
         <button class="p-2 rounded-xl border border-stone-200 text-stone-200 sm:text-normal text-lg
         enabled:hover:bg-white/20 enabled:active:bg-white/30 disabled:cursor-not-allowed transition-all"
         [disabled]="knobValue <= 0"

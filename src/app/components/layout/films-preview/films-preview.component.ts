@@ -5,6 +5,7 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 import { Knob } from 'primeng/knob';
 import { Select } from 'primeng/select';
 import { NgClass } from '@angular/common';
+import { createAnimation } from '../../../animations/transitions.animation';
 
 interface Film {
     label: string;
@@ -19,6 +20,12 @@ type Place = 'exterior' | 'interior' | 'cozinha' | 'escritorio' | 'playground';
   imports: [ImageCompareModule, SelectButtonModule, FormsModule, Select, Knob, NgClass],
   templateUrl: './films-preview.component.html',
   styleUrl: './films-preview.component.scss',
+  animations: [
+    createAnimation('instructionsPopUp', { transform: 'translateX(-50%) translateY(50%) scale(1.2)' }),
+    createAnimation('slideXY', { animateX: true, animateY: true, duration: '400ms' }),
+    createAnimation('knobPopUp', { transform: 'scale(1.02) translateY(-20%)', duration: '400ms' }),
+    createAnimation('knobPopUpMobile', { transform: 'translateX(-50%) translateY(-20%) scale(1.02)', duration: '400ms' })
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FilmsPreviewComponent implements AfterViewInit {
