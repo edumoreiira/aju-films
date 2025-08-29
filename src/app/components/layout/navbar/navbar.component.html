@@ -9,11 +9,15 @@ transition-all border-b"
         <!-- <span style="font-family: 'Avenida';"
         class="text-[3.7rem] leading-none text-nowrap transition-all duration-400"
         [ngClass]="isScrolled ? 'text-[3rem]' : 'text-[3.7rem]'">AJU FILMS</span> -->
-        @if(isScrolledLimit) {
+        <!-- @if(isScrolledLimit) {
             <img loading="eager" src="images/aju-films-logo-black-2.png" alt="Logotipo da Aju Films">
         } @else {
             <img loading="eager" src="images/aju-films-logo-white.png" alt="Logotipo da Aju Films">
-        }
+        } -->
+        <img loading="eager" src="images/aju-films-logo.png" alt="Logotipo da Aju Films"
+        class="transition-all"
+        [ngClass]="{ 'brightness-0': isScrolledLimit, 'h-12': isScrolled, 'h-16': !isScrolled }">
+
     </div>
     <div class="flex flex-grow justify-between items-center">
         <nav class="mx-auto">
