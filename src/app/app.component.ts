@@ -10,5 +10,5 @@ import { NavbarComponent } from "./components/layout/navbar/navbar.component";
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  title = 'window-film';
+  title = 'Aju-Films';
 }

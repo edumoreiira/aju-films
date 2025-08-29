@@ -2,7 +2,7 @@
     <img src="./images/windows3.webp" alt="Janela de prédio com vista para a cidade"
     class="absolute building h-full w-full object-cover brightness-[65%] hue-rotate-[-12deg] grayscale-[40%]
     border-white sm:border-b-0 border-b-1" 
-    (load)="preloadVideos()">
+    (load)="handlePreloadFiles()">
 
     <main id="home" class="c-container h-full grid grid-cols-1 lg:grid-cols-2 gap-6">
         <header class="relative text-white self-center flex flex-col items-center text-center -mt-28 md:mt-0 md:text-start md:items-start fade-in">
@@ -89,15 +89,18 @@
         <app-cards-section/>
     </div>
 </section>
-
 <section id="servicos" class="overflow-hidden">
     <div class="c-container py-32">
         <h1 class="font-normal text-4xl max-w-2xl text-center mx-auto text-stone-600 mb-16" InterObs obsClass="fade-in">
             Explore nossos projetos e veja como unimos <span class="text-stone-900">funcionalidade e design em cada aplicação.</span>
         </h1>
-        <app-video-card/>
-    </div>
-</section>
+        @defer(on viewport; prefetch when videosHasLoaded === true){
+            <app-video-card/>
+        } @placeholder (minimum 1s) {
+            <div class="h-80 rounded-xl bg-stone-200 animate-pulse"></div>
+        }
+        </div>
+    </section>
 
 <footer id="footer" class="bg-black text-white pt-32 overflow-hidden">
     <div class="c-container">

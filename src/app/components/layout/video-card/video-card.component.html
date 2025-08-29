@@ -42,7 +42,7 @@
                     <video #videoRef class="max-h-full aspect-[1/1.4] mx-auto w-[min(600px,100%)] 
                     h-auto sm:h-full sm:w-80 object-cover rounded-2xl skeleton"
                     (timeupdate)="updateProgress(videoRef)" (click)="togglePause(videoRef)" (ended)="onVideoEnd()"
-                    [src]="card.videoUrl" type="video/mp4" (canplaythrough)="onLoadedVideo($event)"
+                    [src]="card.videoUrl" type="video/mp4" (progress)="onLoadedVideo($event)"
                     [muted]="true" [autoplay]="true" [playsInline]="true">
                     </video>
                     <a href="https://www.instagram.com/ajufilms/" target="_blank" class="absolute right-1/2 

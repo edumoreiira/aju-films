@@ -1,12 +1,13 @@
-import { Component, inject, NgZone, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, NgZone, OnInit, signal } from '@angular/core';
 import { CardsSectionComponent } from "../../components/layout/cards-section/cards-section.component";
 import { VideoCardComponent } from "../../components/layout/video-card/video-card.component";
 import { FooterComponent } from "../../components/layout/footer/footer.component";
 import { IntersectionObserveDirective } from '../../directives/intersection-observe.directive';
-import { PreloadVideosService } from '../../services/preloadVideos/preload-videos.service';
+import { PreloadFilesService } from '../../services/preload-files.service';
 import { NgClass } from '@angular/common';
 import { fadeTrigger } from '../../animations/transitions.animation';
 import { FilmsPreviewComponent } from "../../components/layout/films-preview/films-preview.component";
+import { preloadUrls } from '../../../../assets/preload-urls';
 
 @Component({
   selector: 'app-home',
@@ -14,11 +15,13 @@ import { FilmsPreviewComponent } from "../../components/layout/films-preview/fil
   imports: [CardsSectionComponent, VideoCardComponent, FooterComponent, IntersectionObserveDirective, NgClass, FilmsPreviewComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
-  animations: [fadeTrigger]
+  animations: [fadeTrigger],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HomeComponent implements OnInit {
-  private preloadService = inject(PreloadVideosService);
+  private preloadService = inject(PreloadFilesService);
   private zone = inject(NgZone);
+  videosHasLoaded = false;
   headerTexts = [
     {
       largeText: "7 anos",
@@ -57,9 +60,25 @@ export class HomeComponent implements OnInit {
     this.startHeaderTextRotator();
   }
 
-  preloadVideos() {
-    const videosUrl = ["./videos/residencial-converted.mp4", "./videos/comercial-converted.mp4", "./videos/privacidade-converted.mp4"]
+  private preloadVideos() {
+    // const videosUrl = ["./videos/residencial-converted.mp4", "./videos/comercial-converted.mp4", "./videos/privacidade-converted.mp4"]
+    const videosUrl = preloadUrls.videos;
 
-    this.preloadService.preloadVideos(videosUrl)
+    return this.preloadService.preloadVideos(videosUrl)
+  }
+
+  private preloadImages() {
+    const imagesUrl = preloadUrls.images;
+
+    return this.preloadService.preloadImages(imagesUrl);
+  }
+
+  handlePreloadFiles() {
+    // this.preloadImages()
+    this.preloadImages().then(() => {
+      this.preloadVideos().then(() => {
+        this.videosHasLoaded = true;
+      });
+    });
   }
 }
