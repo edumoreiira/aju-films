@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, inject, input, Renderer2, viewChild, signal, Signal } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, inject, Renderer2, viewChild, signal, OnInit, model } from '@angular/core';
 
 export interface FilmDetail {
   title: string;
@@ -16,63 +16,68 @@ export interface FilmDetail {
   styleUrl: './film-details.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class FilmDetailsComponent implements AfterViewInit {
+export class FilmDetailsComponent implements OnInit, AfterViewInit {
   private renderer = inject(Renderer2);
   private readonly itemRef = viewChild('itemEl', { read: ElementRef });
   private readonly containerRef = viewChild('containerEl', { read: ElementRef });
   private itemElement!: HTMLElement
   private containerElement!: HTMLElement
-  films = input.required<FilmDetail[]>();
+  films = model.required<FilmDetail[]>();
   private mouseMoveHandler?: (event: MouseEvent) => void;
   private touchMoveHandler?: (event: TouchEvent) => void;
 
   state = signal({
     itemWidth: 0,
-    currentItem: 0,
+    currentItem: 1,
     currentPosition: 0,
     lastMovement: 0
   });
 
+  ngOnInit(): void {
+    this.cloneFirstAndLastFilm();
+  }
+
   ngAfterViewInit(): void {
     this.itemElement = this.itemRef()?.nativeElement;
     this.containerElement = this.containerRef()?.nativeElement;
-
     this.state.update(state => { 
       state.itemWidth = this.itemElement.offsetWidth 
       return state;
     })
-    console.log(this.state());
   }
 
   next() {
+    if(this.isLastOrFirstItem()) return; // prevent skipping animation on last or first item, applied by onTransitionEnd()
     const filmLength = this.films().length;
-    if(this.state().currentItem >= filmLength - 1) {
-      this.navigateToItem(0);
+    if(this.state().currentItem >= filmLength -1) {
+      this.navigateToItem(1);
     } else {
       this.navigateToItem(this.state().currentItem + 1);
     }
   }
 
   previous() {
+    if(this.isLastOrFirstItem()) return; // prevent skipping animation on last or first item, applied by onTransitionEnd()
     const filmLength = this.films().length;
     if(this.state().currentItem <= 0) {
-      this.navigateToItem(filmLength - 1);
+      this.navigateToItem(filmLength);
     } else {
       this.navigateToItem(this.state().currentItem - 1);
     }
   }
 
-  navigateToItem(index: number) {
+  navigateToItem(index: number, animate: boolean = true) {
     const widthToMove = index * -this.state().itemWidth;
     this.state.update(state => {
       state.currentItem = index;
       state.currentPosition = widthToMove;
       return state;
     })
-    this.translateContainer(widthToMove);
+    this.translateContainer(widthToMove, animate);
   }
 
   onMouseDown(event: MouseEvent, element: HTMLElement) {
+    if(this.isLastOrFirstItem()) return; // prevent skipping animation on last or first item, applied by onTransitionEnd()
     this.removeTransitionClasses(element);
     const startMousePosition = event.clientX;
     this.mouseMoveHandler = (e: MouseEvent) => this.onMouseMove(e, startMousePosition);
@@ -81,6 +86,7 @@ export class FilmDetailsComponent implements AfterViewInit {
   }
 
   onTouchStart(event: TouchEvent, element: HTMLElement) {
+    if(this.isLastOrFirstItem()) return; // prevent skipping animation on last or first item, applied by onTransitionEnd()
     this.removeTransitionClasses(element);
     const startTouchPosition = event.touches[0].clientX;
     this.touchMoveHandler = (e: TouchEvent) => this.onTouchMove(e, startTouchPosition, element);
@@ -111,7 +117,7 @@ export class FilmDetailsComponent implements AfterViewInit {
     });
   }
 
-  onMouseUp(element: HTMLElement) {
+  private onMouseUp(element: HTMLElement) {
     this.addTransitionClasses(element);
     const lastMovement = this.state().lastMovement;
     if(lastMovement > 100) {
@@ -130,7 +136,7 @@ export class FilmDetailsComponent implements AfterViewInit {
     }
   }
 
-  onTouchEnd(element: HTMLElement) {
+  private onTouchEnd(element: HTMLElement) {
     this.addTransitionClasses(element);
     const lastMovement = this.state().lastMovement;
     if(lastMovement > 100) {
@@ -157,9 +163,39 @@ export class FilmDetailsComponent implements AfterViewInit {
     element.classList.remove('duration-500','transition-transform');
   }
 
-  private translateContainer(width: number) {
+  private translateContainer(width: number, animate: boolean = true) {
     const container = this.containerElement;
-    this.renderer.setStyle(container, 'transform', `translateX(${ width }px)`);
+    if(animate) {
+      this.renderer.setStyle(container, 'transform', `translateX(${ width }px)`);
+    } else {
+      this.removeTransitionClasses(container);
+      this.renderer.setStyle(container, 'transform', `translateX(${ width }px)`);
+      setTimeout(() => {
+        this.addTransitionClasses(container);
+      });
+    }
   }
+
+  onTransitionEnd() {
+    const lastItemIndex = this.films().length - 2;
+    if(this.state().currentItem <= 0) {
+      this.navigateToItem(lastItemIndex, false);
+    } else if(this.state().currentItem >= this.films().length - 1) {
+      this.navigateToItem(1, false);
+    }
+  }
+
+  private cloneFirstAndLastFilm() {
+    const firstFilm = this.films()[0];
+    const lastFilm = this.films()[this.films().length - 1];
+    const newArr = [lastFilm, ...this.films(), firstFilm];
+    this.films.set(newArr);
+  }
+
+  isLastOrFirstItem(): boolean {
+    return this.state().currentItem <= 0 || this.state().currentItem >= this.films().length - 1;
+  }
+
+
 
 }
