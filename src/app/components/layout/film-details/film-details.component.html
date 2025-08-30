@@ -5,15 +5,18 @@
     (click)="navigateToItem($index)">
       <span class="block h-2.5 w-2.5 rounded-full group-hover:bg-stone-400
       transition-colors"
-      [ngClass]="state.currentItem === $index ? 'bg-stone-500' : 'bg-stone-300'"></span>
+      [ngClass]="state().currentItem === $index ? 'bg-stone-500' : 'bg-stone-300'"></span>
     </div>
   }
   
 </div>
 
-<div #container class="flex flex-nowrap w-full transition-transform">
+<div #containerEl class="flex flex-nowrap w-full transition-transform duration-500"
+(mousedown)="onMouseDown($event, containerEl)"
+(touchstart)="onTouchStart($event, containerEl)"
+(dragstart)="$event.preventDefault()">
   @for (item of films(); track $index) {
-    <div #item class="basis-[100%] shrink-0 flex flex-col justify-between">
+    <div #itemEl class="basis-[100%] shrink-0 flex flex-col justify-between active:cursor-grabbing">
       <div class="p-5 flex flex-col gap-4">
         <div class="flex flex-col gap-1">
           <h1 class="text-xl font-medium">{{ item.title }}</h1>
