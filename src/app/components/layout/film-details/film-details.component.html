@@ -1,18 +1,19 @@
 <article class="flex flex-col rounded-2xl border border-stone-200 max-w-[700px] mx-auto shadow-sm overflow-hidden">
 <div class="bg-stone-200 p-2 flex items-center justify-center">
   @for(item of films() ; track $index) {
-    <div class="py-1 px-2 sm:px-1.5 cursor-pointer group">
+    <div class="py-1 px-2 sm:px-1.5 cursor-pointer group"
+    (click)="navigateToItem($index)">
       <span class="block h-2.5 w-2.5 rounded-full group-hover:bg-stone-400
       transition-colors"
-      [ngClass]="$index === 0 ? 'bg-stone-500' : 'bg-stone-300'"></span>
+      [ngClass]="state.currentItem === $index ? 'bg-stone-500' : 'bg-stone-300'"></span>
     </div>
   }
   
 </div>
 
-<div #container class="flex flex-nowrap w-full">
+<div #container class="flex flex-nowrap w-full transition-transform">
   @for (item of films(); track $index) {
-    <div #item class="basis-[100%] shrink-0">
+    <div #item class="basis-[100%] shrink-0 flex flex-col justify-between">
       <div class="p-5 flex flex-col gap-4">
         <div class="flex flex-col gap-1">
           <h1 class="text-xl font-medium">{{ item.title }}</h1>
@@ -39,4 +40,9 @@
   }
 </div>
 
+
 </article>
+<button
+(click)="previous()">previous</button>
+<button
+(click)="next()">next</button>
