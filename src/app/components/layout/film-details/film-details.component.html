@@ -1,14 +1,29 @@
 <article class="flex flex-col rounded-2xl border border-stone-200 max-w-[700px] mx-auto shadow-sm overflow-hidden">
-<div class="bg-stone-200 p-2 flex items-center justify-center">
-  @for(item of films() ; track $index) {
-    @if(!($index === 0 || $index === films().length -1)) {
-      <button class="py-1 px-2 sm:px-1.5 cursor-pointer group"
-      (click)="navigateToItem($index)">
-        <span class="block h-2.5 w-2.5 rounded-full
-        transition-colors"
-        [ngClass]="state().currentItem === $index ? 'bg-stone-500' : 'bg-stone-300 group-hover:bg-stone-400'"></span>
-      </button>
+<div class="bg-stone-200 p-2 flex items-center justify-between">
+  <div class="flex items-center">
+    @for(item of films() ; track $index) {
+      @if(!($index === 0 || $index === films().length -1)) {
+        <button class="py-1 px-2 sm:px-1.5 cursor-pointer group"
+        (click)="navigateToItem($index)">
+          <span class="block h-2.5 w-2.5 rounded-full
+          transition-colors"
+          [ngClass]="state().currentItem === $index ? 'bg-stone-500' : 'bg-stone-300 group-hover:bg-stone-400'"></span>
+        </button>
+      }
     }
+  </div>
+  @if(state().autoslide) {
+    <button class="p-1"
+    (click)="stopAutoSlide()">
+      <i class="fi fi-sr-pause flex text-xs text-stone-500"></i>
+      <span class="sr-only">Pausar auto-seleção</span>
+    </button>
+  } @else {
+    <button class="p-1"
+    (click)="startAutoSlide()">
+      <i class="fi fi-sr-play flex text-xs text-stone-500"></i>
+      <span class="sr-only">Iniciar auto-seleção</span>
+    </button>
   }
   
 </div>
@@ -45,10 +60,4 @@
     </div>
   }
 </div>
-
-
 </article>
-<button
-(click)="previous()">previous</button>
-<button
-(click)="next()">next</button>

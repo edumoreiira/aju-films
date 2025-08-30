@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, inject, Renderer2, viewChild, signal, OnInit, model } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, inject, Renderer2, viewChild, signal, OnInit, model, NgZone } from '@angular/core';
 
 export interface FilmDetail {
   title: string;
@@ -17,24 +17,30 @@ export interface FilmDetail {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FilmDetailsComponent implements OnInit, AfterViewInit {
+  private zone = inject(NgZone);
   private renderer = inject(Renderer2);
+  // ViewChild references
   private readonly itemRef = viewChild('itemEl', { read: ElementRef });
   private readonly containerRef = viewChild('containerEl', { read: ElementRef });
   private itemElement!: HTMLElement
   private containerElement!: HTMLElement
+  // 
   films = model.required<FilmDetail[]>();
   private mouseMoveHandler?: (event: MouseEvent) => void;
   private touchMoveHandler?: (event: TouchEvent) => void;
-
-  state = signal({
+  private filmInterval: any;
+  // State
+  protected state = signal({
     itemWidth: 0,
     currentItem: 1,
     currentPosition: 0,
-    lastMovement: 0
+    lastMovement: 0,
+    autoslide: false
   });
 
   ngOnInit(): void {
     this.cloneFirstAndLastFilm();
+    this.startAutoSlide();
   }
 
   ngAfterViewInit(): void {
@@ -46,7 +52,7 @@ export class FilmDetailsComponent implements OnInit, AfterViewInit {
     })
   }
 
-  next() {
+  protected next() {
     if(this.isLastOrFirstItem()) return; // prevent skipping animation on last or first item, applied by onTransitionEnd()
     const filmLength = this.films().length;
     if(this.state().currentItem >= filmLength -1) {
@@ -56,7 +62,7 @@ export class FilmDetailsComponent implements OnInit, AfterViewInit {
     }
   }
 
-  previous() {
+  protected previous() {
     if(this.isLastOrFirstItem()) return; // prevent skipping animation on last or first item, applied by onTransitionEnd()
     const filmLength = this.films().length;
     if(this.state().currentItem <= 0) {
@@ -66,8 +72,9 @@ export class FilmDetailsComponent implements OnInit, AfterViewInit {
     }
   }
 
-  navigateToItem(index: number, animate: boolean = true) {
+  protected navigateToItem(index: number, animate: boolean = true) {
     const widthToMove = index * -this.state().itemWidth;
+    if(this.state().autoslide) this.resetAutoSlide();
     this.state.update(state => {
       state.currentItem = index;
       state.currentPosition = widthToMove;
@@ -76,22 +83,26 @@ export class FilmDetailsComponent implements OnInit, AfterViewInit {
     this.translateContainer(widthToMove, animate);
   }
 
-  onMouseDown(event: MouseEvent, element: HTMLElement) {
+  protected onMouseDown(event: MouseEvent, element: HTMLElement) {
     if(this.isLastOrFirstItem()) return; // prevent skipping animation on last or first item, applied by onTransitionEnd()
+    const currentAutoSlide = this.state().autoslide;
+    this.stopAutoSlide();
     this.removeTransitionClasses(element);
     const startMousePosition = event.clientX;
     this.mouseMoveHandler = (e: MouseEvent) => this.onMouseMove(e, startMousePosition);
     element.addEventListener('mousemove', this.mouseMoveHandler);
-    document.addEventListener('mouseup', () => { this.onMouseUp(element) }, { once: true });
+    document.addEventListener('mouseup', () => { this.onMouseUp(element, currentAutoSlide) }, { once: true });
   }
 
-  onTouchStart(event: TouchEvent, element: HTMLElement) {
+  protected onTouchStart(event: TouchEvent, element: HTMLElement) {
     if(this.isLastOrFirstItem()) return; // prevent skipping animation on last or first item, applied by onTransitionEnd()
+    const currentAutoSlide = this.state().autoslide;
+    this.stopAutoSlide();
     this.removeTransitionClasses(element);
     const startTouchPosition = event.touches[0].clientX;
     this.touchMoveHandler = (e: TouchEvent) => this.onTouchMove(e, startTouchPosition, element);
     element.addEventListener('touchmove', this.touchMoveHandler);
-    document.addEventListener('touchend', () => { this.onTouchEnd(element) }, { once: true });
+    document.addEventListener('touchend', () => { this.onTouchEnd(element, currentAutoSlide) }, { once: true });
   }
 
   private onMouseMove(event: MouseEvent, start: number) {
@@ -117,7 +128,8 @@ export class FilmDetailsComponent implements OnInit, AfterViewInit {
     });
   }
 
-  private onMouseUp(element: HTMLElement) {
+  private onMouseUp(element: HTMLElement, resumeAutoSlide: boolean) {
+    if(resumeAutoSlide) this.startAutoSlide();
     this.addTransitionClasses(element);
     const lastMovement = this.state().lastMovement;
     if(lastMovement > 100) {
@@ -136,7 +148,8 @@ export class FilmDetailsComponent implements OnInit, AfterViewInit {
     }
   }
 
-  private onTouchEnd(element: HTMLElement) {
+  private onTouchEnd(element: HTMLElement, resumeAutoSlide: boolean) {
+    if(resumeAutoSlide) this.startAutoSlide();
     this.addTransitionClasses(element);
     const lastMovement = this.state().lastMovement;
     if(lastMovement > 100) {
@@ -176,7 +189,7 @@ export class FilmDetailsComponent implements OnInit, AfterViewInit {
     }
   }
 
-  onTransitionEnd() {
+  protected onTransitionEnd() {
     const lastItemIndex = this.films().length - 2;
     if(this.state().currentItem <= 0) {
       this.navigateToItem(lastItemIndex, false);
@@ -192,10 +205,36 @@ export class FilmDetailsComponent implements OnInit, AfterViewInit {
     this.films.set(newArr);
   }
 
-  isLastOrFirstItem(): boolean {
+  private isLastOrFirstItem(): boolean {
     return this.state().currentItem <= 0 || this.state().currentItem >= this.films().length - 1;
   }
 
+  protected startAutoSlide() {
+    this.zone.runOutsideAngular(() => {
+      this.filmInterval = setInterval(() => {
+        this.next();
+      }, 5000);
+    })
+    this.state.update(state => ({
+      ...state,
+      autoslide: true
+    }));
+  }
 
+  protected stopAutoSlide() {
+    if (this.filmInterval) {
+      clearInterval(this.filmInterval);
+      this.filmInterval = null;
+    }
+    this.state.update(state => ({
+      ...state,
+      autoslide: false
+    }));
+  }
+
+  private resetAutoSlide() {
+    this.stopAutoSlide();
+    this.startAutoSlide();
+  }
 
 }
