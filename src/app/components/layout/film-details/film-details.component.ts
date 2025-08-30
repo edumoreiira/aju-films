@@ -1,5 +1,12 @@
 import { NgClass } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
+
+export interface FilmDetail {
+  title: string;
+  rate: number;
+  text: string;
+  info: { large_text: string, small_text: string }[];
+}
 
 @Component({
   selector: 'app-film-details',
@@ -9,7 +16,6 @@ import { Component } from '@angular/core';
   styleUrl: './film-details.component.scss'
 })
 export class FilmDetailsComponent {
-
-  films = [1,2,3,4,5,6,7,8];
+  films = input.required<FilmDetail[]>();
 
 }

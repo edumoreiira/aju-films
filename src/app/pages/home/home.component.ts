@@ -9,6 +9,8 @@ import { fadeTrigger } from '../../animations/transitions.animation';
 import { FilmsPreviewComponent } from "../../components/layout/films-preview/films-preview.component";
 import { preloadUrls } from '../../../../assets/preload-urls';
 import { FilmDetailsComponent } from '../../components/layout/film-details/film-details.component';
+import { FILM_DETAILS, HEADER_TEXTS } from './static-data';
+
 
 @Component({
   selector: 'app-home',
@@ -24,21 +26,9 @@ export class HomeComponent implements OnInit {
   private preloadService = inject(PreloadFilesService);
   private zone = inject(NgZone);
   videosHasLoaded = false;
-  headerTexts = [
-    {
-      largeText: "7 anos",
-      smallText: "de excelência em aplicação de películas em residências e comércios"
-    },
-    {
-      largeText: "1.500+",
-      smallText: "janelas transformadas com películas de alta performance"
-    },
-    {
-      largeText: "10 tipos +",
-      smallText: "de películas para garantir proteção solar, privacidade, segurança e estética."
-    }
-  ]
   selectedHeaderTextIndex = signal(0);
+  headerTexts = HEADER_TEXTS;
+  filmDetails = FILM_DETAILS;
 
   private intervalId: any;
 

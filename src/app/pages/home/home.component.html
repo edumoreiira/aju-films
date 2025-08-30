@@ -71,7 +71,7 @@
 
 <section id="films-preview" class="overflow-hidden">
     <div class="c-container py-32">
-        <div class="flex flex-col items-center gap-4 max-w-3xl text-center mx-auto mb-16">
+        <div class="flex flex-col items-center gap-4 max-w-3xl text-center mx-auto mb-8">
             <h1 class="text-4xl text-stone-600" InterObs obsClass="fade-in">
                 <span class="text-stone-900 font-medium">Simule nossas películas</span> e veja, na prática.
             </h1>
@@ -83,10 +83,10 @@
 </section>
 
 <section id="films-info" class="overflow-hidden">
-    <div class="c-container py-32">
-        <!-- <h1 class="font-normal text-4xl max-w-2xl text-center mx-auto text-stone-600 mb-16" InterObs obsClass="fade-in">
-        <span class="text-stone-900">Oferecemos modernidade,</span> com produtos e serviços de excelência.</h1> -->
-        <app-film-details/>
+    <div class="c-container pb-32">
+        <h1 class="font-normal text-4xl max-w-2xl text-center mx-auto text-stone-600 mb-8" InterObs obsClass="fade-in">
+        <span class="text-stone-900">Descubra detalhes</span> dos nossos produtos.</h1>
+        <app-film-details [films]="filmDetails" />
     </div>
 </section>
 

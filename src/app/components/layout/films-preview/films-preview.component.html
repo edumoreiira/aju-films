@@ -54,7 +54,7 @@
 
 
     @let leitosoSelected = selectedFilm?.value === 'jateado-leitoso' || selectedFilm === undefined;
-    <p-imagecompare class="rounded-3xl sm:h-auto h-[28rem] block" >
+    <p-imagecompare class="rounded-3xl max-h-[38rem] sm:h-auto h-[28rem] block" >
       <ng-template #left>
           <img class="sm:object-fill object-cover" [src]="leftImageUrl"
           [ngClass]="{ 'object-left': leitosoSelected }" />
