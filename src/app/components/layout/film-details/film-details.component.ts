@@ -95,14 +95,38 @@ export class FilmDetailsComponent implements OnInit, AfterViewInit {
   }
 
   protected onTouchStart(event: TouchEvent, element: HTMLElement) {
-    if(this.isLastOrFirstItem()) return; // prevent skipping animation on last or first item, applied by onTransitionEnd()
+    if(this.isLastOrFirstItem()) return;
     const currentAutoSlide = this.state().autoslide;
     this.stopAutoSlide();
     this.removeTransitionClasses(element);
-    const startTouchPosition = event.touches[0].clientX;
-    this.touchMoveHandler = (e: TouchEvent) => this.onTouchMove(e, startTouchPosition, element);
-    element.addEventListener('touchmove', this.touchMoveHandler);
-    document.addEventListener('touchend', () => { this.onTouchEnd(element, currentAutoSlide) }, { once: true });
+    const startTouch = event.touches[0];
+    const startTouchPositionX = startTouch.clientX;
+    const startTouchPositionY = startTouch.clientY;
+    let direction: 'undecided' | 'horizontal' | 'vertical' = 'undecided';
+
+    this.touchMoveHandler = (e: TouchEvent) => {
+      if (e.touches.length !== 1) return;
+      const currentTouch = e.touches[0];
+      const dx = Math.abs(currentTouch.clientX - startTouchPositionX);
+      const dy = Math.abs(currentTouch.clientY - startTouchPositionY);
+
+      if (direction === 'undecided') {
+        if (dx > 10 || dy > 10) { // threshold para evitar falsos positivos
+          direction = dx > dy ? 'horizontal' : 'vertical';
+        } else {
+          return;
+        }
+      }
+
+      if (direction === 'horizontal') {
+        e.preventDefault();
+        this.onTouchMove(e, startTouchPositionX, element);
+      }
+      // se for vertical, não faz nada (deixa scrollar até touchstart ser chamado novamente)
+    };
+
+    element.addEventListener('touchmove', this.touchMoveHandler, { passive: false });
+    document.addEventListener('touchend', () => { this.onTouchEnd(element, currentAutoSlide) }, { passive: false, once: true });
   }
 
   private onMouseMove(event: MouseEvent, start: number) {
@@ -118,6 +142,7 @@ export class FilmDetailsComponent implements OnInit, AfterViewInit {
 
   private onTouchMove(event: TouchEvent, start: number, element: HTMLElement) {
     if (event.touches.length !== 1) return;
+    event.preventDefault();
     const currentTouchPosition = event.touches[0].clientX;
     const movement = start - currentTouchPosition;
     const newPosition = this.state().currentPosition - movement;
@@ -213,7 +238,7 @@ export class FilmDetailsComponent implements OnInit, AfterViewInit {
     this.zone.runOutsideAngular(() => {
       this.filmInterval = setInterval(() => {
         this.next();
-      }, 5000);
+      }, 10000);
     })
     this.state.update(state => ({
       ...state,
