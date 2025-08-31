@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, inject, Renderer2, viewChild, signal, OnInit, model, NgZone } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, inject, Renderer2, viewChild, signal, OnInit, model, NgZone, HostListener } from '@angular/core';
 
 export interface FilmDetail {
   title: string;
@@ -46,10 +46,7 @@ export class FilmDetailsComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.itemElement = this.itemRef()?.nativeElement;
     this.containerElement = this.containerRef()?.nativeElement;
-    this.state.update(state => { 
-      state.itemWidth = this.itemElement.offsetWidth 
-      return state;
-    })
+    this.updateItemWidth();
   }
 
   protected next() {
@@ -260,6 +257,19 @@ export class FilmDetailsComponent implements OnInit, AfterViewInit {
   private resetAutoSlide() {
     this.stopAutoSlide();
     this.startAutoSlide();
+  }
+
+  private updateItemWidth() {
+    this.state.update(state => { 
+      state.itemWidth = this.itemElement.offsetWidth 
+      return state;
+    })
+    this.navigateToItem(this.state().currentItem, false);
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize() {
+    this.updateItemWidth();
   }
 
 }
