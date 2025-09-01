@@ -1,5 +1,6 @@
 import { NgClass } from '@angular/common';
-import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, inject, Renderer2, viewChild, signal, OnInit, model, NgZone, HostListener } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, inject, Renderer2, viewChild, signal, OnInit, model, NgZone, HostListener, QueryList, viewChildren } from '@angular/core';
+import { createAnimation } from '../../../animations/transitions.animation';
 
 export interface FilmDetail {
   title: string;
@@ -14,6 +15,7 @@ export interface FilmDetail {
   imports: [NgClass],
   templateUrl: './film-details.component.html',
   styleUrl: './film-details.component.scss',
+  animations: [createAnimation('fadeIn', {})],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FilmDetailsComponent implements OnInit, AfterViewInit {
@@ -22,10 +24,13 @@ export class FilmDetailsComponent implements OnInit, AfterViewInit {
   // ViewChild references
   private readonly itemRef = viewChild('itemEl', { read: ElementRef });
   private readonly containerRef = viewChild('containerEl', { read: ElementRef });
+  private readonly textsRef = viewChildren('textEl');
   private itemElement!: HTMLElement
   private containerElement!: HTMLElement
   // 
   films = model.required<FilmDetail[]>();
+  isTextsClamped = signal<boolean[]>([]);
+  limitElementHeight = signal(true);
   private mouseMoveHandler?: (event: MouseEvent) => void;
   private touchMoveHandler?: (event: TouchEvent) => void;
   private filmInterval: any;
@@ -43,9 +48,11 @@ export class FilmDetailsComponent implements OnInit, AfterViewInit {
     this.startAutoSlide();
   }
 
+
   ngAfterViewInit(): void {
     this.itemElement = this.itemRef()?.nativeElement;
     this.containerElement = this.containerRef()?.nativeElement;
+    this.updateClampedTextsStatus();
     this.updateItemWidth();
   }
 
@@ -70,6 +77,7 @@ export class FilmDetailsComponent implements OnInit, AfterViewInit {
   }
 
   protected navigateToItem(index: number, animate: boolean = true) {
+    if(this.limitElementHeight() === false) this.enableLimitElementHeight();
     const widthToMove = index * -this.state().itemWidth;
     if(this.state().autoslide) this.resetAutoSlide();
     this.state.update(state => {
@@ -267,9 +275,27 @@ export class FilmDetailsComponent implements OnInit, AfterViewInit {
     this.navigateToItem(this.state().currentItem, false);
   }
 
+    protected disableLimitElementHeight() {
+    this.limitElementHeight.set(false);
+  }
+
+  protected enableLimitElementHeight() {
+    this.limitElementHeight.set(true);
+  }
+
+  private updateClampedTextsStatus() {
+    const texts = (this.textsRef() as ElementRef[]).map(ref => ref.nativeElement);
+    let isTextsClampedArr: boolean[] = [];
+    texts.forEach((element, index) => {
+      isTextsClampedArr.push(element.scrollHeight > element.clientHeight);
+    })
+    this.isTextsClamped.set(isTextsClampedArr);
+  }
+
   @HostListener('window:resize', ['$event'])
   onResize() {
     this.updateItemWidth();
+    this.updateClampedTextsStatus();
   }
 
 }
