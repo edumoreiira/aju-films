@@ -78,15 +78,23 @@
             <p class="text-stone-600 max-w-xl delay-1" InterObs obsClass="fade-in" rootMargin="-140px"
             >Utilize o simulador de películas para visualizar as opções disponíveis, podendo comparar o resultado antes de escolher.</p>
         </div>
-        <app-films-preview/>
+        <app-films-preview InterObs obsClass="fade-in"/>
     </div>
 </section>
 
 <section id="films-info" class="overflow-hidden">
-    <div class="c-container pb-32">
-        <h1 class="font-normal text-4xl max-w-2xl text-center mx-auto text-stone-600 mb-8" InterObs obsClass="fade-in">
+    <div class="c-container pb-32 flex flex-col items-center">
+        <h1 class="font-normal text-4xl max-w-2xl text-center text-stone-600 mb-8" InterObs obsClass="fade-in">
         <span class="text-stone-900">Descubra detalhes</span> dos nossos produtos.</h1>
-        <app-film-details [films]="filmDetails" />
+        <div class="flex flex-col gap-4 items-center max-w-full" InterObs obsClass="fade-in">
+            <app-film-details class="max-w-full" [films]="filmDetails" />
+            <a class="inline-flex items-center gap-2 border border-stone-200 text-stone-950 py-2 px-6 rounded-2xl shadow-sm text-lg font-medium
+            hover:scale-105 active:scale-100 transition-transform"
+            href="https://wa.me/+5579996121414?text=Ol%C3%A1,%20gostaria%20de%20tirar%20algumas%20d%C3%BAvidas." target="_blank">
+                <i class="fi fi-brands-whatsapp flex text-green-500"></i>
+                Tirar Dúvidas
+            </a>
+        </div>
     </div>
 </section>
 
