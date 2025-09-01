@@ -17,33 +17,90 @@ export const HEADER_TEXTS = [
 
 export const FILM_DETAILS: FilmDetail[] = [
   {
-    title: "Film 1",
-    rate: 4.5,
-    text: "Film 1 é uma solução inovadora para quem busca conforto térmico e proteção solar. Com tecnologia avançada, proporciona excelente redução de calor, bloqueando a maior parte dos raios UV prejudiciais. Ideal para residências e ambientes comerciais, oferece durabilidade e garantia estendida, tornando-se uma escolha confiável para quem valoriza qualidade e segurança.",
+    title: "Linha Térmica Transparente",
+    text: "Película Transparente com até 90% de transparência e bloqueio de Infravermelho/Calor (IR) de até 61% e UV de 99,9%. Utilizada em vitrines e vidros que não podem alterar a fachada, ideal para reduzir o Calor e Filtrar os Raios UV, evitando desbotamento de móveis e objetos.",
     info: [
-      { large_text: "85%", small_text: "Redução de Calor" },
+      { large_text: "61%", small_text: "Redução de Calor (IR)" },
       { large_text: "99%", small_text: "Bloqueio de Raios UV" },
-      { large_text: "15+", small_text: "Anos de Garantia" },
+      { large_text: "90%", small_text: "Transparência (VLT)" },
     ]
   },
   {
-    title: "Film 2",
-    rate: 3.8,
-    text: "Film 2 destaca-se por sua eficiência em bloquear raios solares e proporcionar ambientes mais agradáveis. Sua aplicação é simples e rápida, garantindo proteção contra o desbotamento de móveis e maior privacidade. Com uma excelente relação custo-benefício, é recomendado para quem deseja aliar proteção, conforto e economia de energia.",
+    title: "Linha Carbono",
+    text: "Película Fumê de Carbono, com duplo poliéster e rejeição de calor. Proteção de até 99% contra os raios ultravioletas e até 61% infravermelho/calor (varia por modelo). Excelente visibilidade de dentro para fora. Disponíveis em transparência 0,5% (G5), 20% (G20), 35% (G35) e 50% (G50).",
+    top_seller: true,
     info: [
-      { large_text: "80%", small_text: "Redução de Calor" },
-      { large_text: "95%", small_text: "Bloqueio de Raios UV" },
-      { large_text: "10+", small_text: "Anos de Garantia" },
+      { large_text: "61%", small_text: "Redução de Calor (IR)" },
+      { large_text: "99%", small_text: "Bloqueio de Raios UV" }
     ]
   },
   {
-    title: "Film 3",
-    rate: 4.2,
-    text: "Film 3 combina estética e funcionalidade, oferecendo uma solução elegante para controle solar. Com uma variedade de opções de acabamento, permite personalizar ambientes sem comprometer a eficiência. É a escolha ideal para quem busca um produto que una design e desempenho.",
+    title: "Linha Semiprofissional",
+    text: "Película Fumê bastante utilizada em instalações comerciais como linha tradicional, sem rejeição de calor, apenas para estética e privacidade em determinados ambientes, como por exemplo: portas e janelas internas de escritórios. Disponíveis em transparência 0,5% (G5), 20% (G20) e 35% (G35).",
     info: [
-      { large_text: "90%", small_text: "Redução de Calor" },
-      { large_text: "97%", small_text: "Bloqueio de Raios UV" },
-      { large_text: "12+", small_text: "Anos de Garantia" },
+      { large_text: "Transparências", small_text: "(G5/G20/G35)" },
+      { large_text: "Estética", small_text: "Foco principal" },
     ]
-  }
+  },
+  {
+    title: "Linha Premium Nano Cerâmica",
+    text: "Película Fumê de Alta Performance com Tecnologia Nanoceramic em sua composição. Oferece proteção superior contra raios UV e Infravermelho. Conservando os interiores e evitando desbotamentos e economia com uso do ar-condicionado. Disponíveis em transparência 0,5% (G5), 20% (G20), 35% (G35) e 50% (G50).",
+    top_seller: true,
+    info: [
+      { large_text: "95%", small_text: "Rejeição IR (máx aprox.)" },
+      { large_text: "99%", small_text: "Bloqueio de Raios UV" },
+      { large_text: "Alta", small_text: "Performance térmica" },
+    ]
+  },
+  {
+    title: "Linha Blackout",
+    text: "Película Blackout Preto, com 100% do bloqueio da luz, e rejeição de calor variável. Proteção de até 99% contra os raios ultravioletas. Ideal para substituição de cortinas e escurecimento total em quartos.",
+    info: [
+      { large_text: "100%", small_text: "Bloqueio de Luz" },
+      { large_text: "99%", small_text: "Bloqueio de Raios UV" },
+    ]
+  },
+  {
+    title: "Linha Espelhada",
+    text: "Película Espelhada, proporciona ao ambiente um recurso privativo e estético valorizando o imóvel, além de reduzir significativamente o calor que passa pelos vidros nos ambientes até 84% em alguns produtos.",
+    info: [
+      { large_text: "84%", small_text: "Redução de Calor" },
+      { large_text: "Privacidade", small_text: "Proteção durante o dia" },
+    ]
+  },
+  {
+    title: "Linha Segurança/Proteção",
+    text: "Película de Segurança, oferece proteção contra vidros estilhaçados. Funciona mantendo o vidro quebrado no lugar, no caso de um impacto, aumenta a resistência do vidro, evitando acidentes graves, além de conter ações de vândalos.",
+    info: [
+      { large_text: "Alta", small_text: "Proteção contra estilhaçamento" },
+      { large_text: "Segurança", small_text: "Reduz acidentes e vandalismo" },
+    ]
+  },
+  {
+    title: "Linha Decorativa",
+    text: "Para criar ambientes privativos com formatos diferenciados, sem a perda de luz. Entre as opções: Jateado, White Out (Branco Leitoso).",
+    info: [
+      { large_text: "Privacidade", small_text: "Sem perda da luz natural" },
+      { large_text: "Estética", small_text: "Ambientes personalizados" }
+    ]
+  },
 ];
+
+
+
+// •Linha Térmica Transparente – Película Transparente com até 90% de transparência e bloqueio de Infravermelho/Calor (IR) de até 61% e UV de 99,9%. Utilizada em vitrines e vidros que não podem alterar a fachada, ideal para reduzir o Calor e Filtrar os Raio UV, evitando desbotamento de móveis e objetos. 
+
+
+// •Linha Semiprofissional – Película Fumê bastante utilizada em instalações comerciais como linha tradicional, sem rejeição de calor, apenas para estética e privacidade em determinados ambientes, como por exemplo: portas e janelas internas de escritórios. Disponíveis em transparência 0,5% (G5), 20% (G20) e 35% (G35). 
+
+// •Linha Carbono – Película Fumê de Carbono, com duplo poliéster e rejeição de calor. Proteção  de até 99% contra os raios ultravioletas e até 41% infravermelho/calor. Excelente visibilidade de dentro para fora. Disponíveis em transparência 0,5% (G5), 20% (G20), 35% (G35) e 50% (G50).
+
+// •Linha Premium Nano Cerâmica – Película Fumê de Alta Performance com Tecnologia Nanoceramic em sua composição. Oferece 10x mais proteção contra raios UV e Infravermelho. Conservando os interiores e evitando desbotamentos e economia com uso do ar-condicionado. Perfeito para quem deseja alta proteção contra o sol. A redução da temperatura é sentida imediatamente após a instalação do produto. Disponíveis em transparência 0,5% (G5), 20% (G20), 35% (G35) e 50% (G50). 
+
+// •Linha Blackout – Película Blackout Preto, com 100% do bloqueia da luz, e rejeição de calor. Proteção de até 99% contra os raios ultravioletas e até 40% infravermelho/calor. Ideal para substituição de cortinas e escurecimento total em quartos. 
+
+// •Linha Espelhada – Película Espelhada, proporciona ao ambiente um recurso privativo e estético valorizando o imóvel, além de reduzir significativamente o calor que passa pelos vidros nos ambientes em até 84% e bloqueando os raios UV em 99%.
+
+// * Linha Segurança/Proteção – Película de Segurança, oferece proteção contra vidros estilhaçados. Funciona mantendo o vidro quebrado no lugar, no caso de um impacto, aumenta a resistência do vidro, evitando acidentes graves, além de conter ações de vândalos. 
+
+// * Linha Decorativa – Para criar ambientes privativos com formatos diferenciados, sem a perda de luz. Entre as opções: Jateado, White Out (Branco Leitoso).

@@ -34,22 +34,29 @@
 (dragstart)="$event.preventDefault()"
 (transitionend)="onTransitionEnd()">
   @for (item of films(); track $index) {
-    <div #itemEl class="basis-[100%] shrink-0 flex flex-col justify-between active:cursor-grabbing">
+    <div #itemEl class="basis-[100%] shrink-0 overflow-hidden flex flex-col justify-between active:cursor-grabbing">
       <div class="p-5 flex flex-col gap-4">
-        <div class="flex flex-col gap-1">
-          <h1 class="text-xl font-medium">{{ item.title }}</h1>
-          <div class="flex items-center gap-1 text-sm">
-            <i class="fi fi-sr-star flex text-primary"></i>
-            <span class="text-stone-600">{{ item.rate }}/5</span>
-          </div>
-        </div>
-      
+        @switch (item.top_seller) {
+          @case (true) {
+            <div class="flex gap-2 items-center flex-wrap">
+              <h1 class="text-xl font-medium">{{ item.title }}</h1>
+              <div class="flex items-center gap-1 text-xs px-2 py-1 border rounded-full border-orange-300 bg-orange-300/10">
+                <i class="fi fi-sr-fire-flame-curved flex text-orange-300"></i>
+                <span class="text-stone-500">Mais vendidos</span>
+              </div>
+            </div>
+          }
+          @default {
+            <h1 class="text-xl font-medium">{{ item.title }}</h1>
+          }
+        }
+    
         <div>
           <p class="text-stone-600">{{ item.text }}</p>
         </div>
       
       </div>
-      <div class="flex items-center gap-6 rounded-xl m-1.5 bg-stone-100 px-8 py-4 justify-around">
+      <div class="flex items-start gap-6 rounded-xl m-1.5 bg-stone-100 px-8 py-4 justify-around">
         @for (info of item.info; track $index) {
           <div class="text-center">
             <p class="text-xl text-stone-900 ">{{ info.large_text }}</p>

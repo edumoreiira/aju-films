@@ -3,7 +3,7 @@ import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, inject, 
 
 export interface FilmDetail {
   title: string;
-  rate: number;
+  top_seller?: boolean;
   text: string;
   info: { large_text: string, small_text: string }[];
 }
