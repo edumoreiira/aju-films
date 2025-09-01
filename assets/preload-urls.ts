@@ -1,8 +1,8 @@
 export const preloadUrls = {
   videos: [
-    "./videos/residencial-converted.mp4",
-    "./videos/comercial-converted.mp4",
-    "./videos/privacidade-converted.mp4"
+    "./videos/residencial2.mp4",
+    "./videos/comercial2.mp4",
+    "./videos/corte-computadorizado.mp4"
   ],
   images: [
     "./images/window-preview/blackout.webp",
