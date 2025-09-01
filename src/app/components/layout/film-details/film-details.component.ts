@@ -116,7 +116,7 @@ export class FilmDetailsComponent implements OnInit, AfterViewInit {
       const dy = Math.abs(currentTouch.clientY - startTouchPositionY);
 
       if (direction === 'undecided') {
-        if (dx > 10 || dy > 10) { // threshold para evitar falsos positivos
+        if (dx > 5 || dy > 5) { // threshold para evitar falsos positivos
           direction = dx > dy ? 'horizontal' : 'vertical';
         } else {
           return;

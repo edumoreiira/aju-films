@@ -17,24 +17,6 @@ export const HEADER_TEXTS = [
 
 export const FILM_DETAILS: FilmDetail[] = [
   {
-    title: "Linha Térmica Transparente",
-    text: "Película Transparente com até 90% de transparência e bloqueio de Infravermelho/Calor (IR) de até 61% e UV de 99,9%. Utilizada em vitrines e vidros que não podem alterar a fachada, ideal para reduzir o Calor e Filtrar os Raios UV, evitando desbotamento de móveis e objetos.",
-    info: [
-      { large_text: "61%", small_text: "Redução de Calor (IR)" },
-      { large_text: "99%", small_text: "Bloqueio de Raios UV" },
-      { large_text: "90%", small_text: "Transparência (VLT)" },
-    ]
-  },
-  {
-    title: "Linha Carbono",
-    text: "Película Fumê de Carbono, com duplo poliéster e rejeição de calor. Proteção de até 99% contra os raios ultravioletas e até 61% infravermelho/calor (varia por modelo). Excelente visibilidade de dentro para fora. Disponíveis em transparência 0,5% (G5), 20% (G20), 35% (G35) e 50% (G50).",
-    top_seller: true,
-    info: [
-      { large_text: "61%", small_text: "Redução de Calor (IR)" },
-      { large_text: "99%", small_text: "Bloqueio de Raios UV" }
-    ]
-  },
-  {
     title: "Linha Semiprofissional",
     text: "Película Fumê bastante utilizada em instalações comerciais como linha tradicional, sem rejeição de calor, apenas para estética e privacidade em determinados ambientes, como por exemplo: portas e janelas internas de escritórios. Disponíveis em transparência 0,5% (G5), 20% (G20) e 35% (G35).",
     info: [
@@ -43,11 +25,20 @@ export const FILM_DETAILS: FilmDetail[] = [
     ]
   },
   {
+    title: "Linha Carbono",
+    text: "Película Fumê de Carbono, com duplo poliéster e rejeição de calor. Proteção de até 99% contra os raios ultravioletas e até 41% infravermelho/calor (varia por modelo). Excelente visibilidade de dentro para fora. Disponíveis em transparência 0,5% (G5), 20% (G20), 35% (G35) e 50% (G50).",
+    top_seller: true,
+    info: [
+      { large_text: "41%", small_text: "Redução de Calor (IR)" },
+      { large_text: "99%", small_text: "Bloqueio de Raios UV" }
+    ]
+  },
+  {
     title: "Linha Premium Nano Cerâmica",
     text: "Película Fumê de Alta Performance com Tecnologia Nanoceramic em sua composição. Oferece proteção superior contra raios UV e Infravermelho. Conservando os interiores e evitando desbotamentos e economia com uso do ar-condicionado. Disponíveis em transparência 0,5% (G5), 20% (G20), 35% (G35) e 50% (G50).",
     top_seller: true,
     info: [
-      { large_text: "95%", small_text: "Rejeição IR (máx aprox.)" },
+      { large_text: "61%", small_text: "Rejeição IR (máx aprox.)" },
       { large_text: "99%", small_text: "Bloqueio de Raios UV" },
       { large_text: "Alta", small_text: "Performance térmica" },
     ]
@@ -58,6 +49,15 @@ export const FILM_DETAILS: FilmDetail[] = [
     info: [
       { large_text: "100%", small_text: "Bloqueio de Luz" },
       { large_text: "99%", small_text: "Bloqueio de Raios UV" },
+    ]
+  },
+  {
+    title: "Linha Térmica Transparente",
+    text: "Película Transparente com até 90% de transparência e bloqueio de Infravermelho/Calor (IR) de até 61% e UV de 99,9%. Utilizada em vitrines e vidros que não podem alterar a fachada, ideal para reduzir o Calor e Filtrar os Raios UV, evitando desbotamento de móveis e objetos.",
+    info: [
+      { large_text: "61%", small_text: "Redução de Calor (IR)" },
+      { large_text: "99%", small_text: "Bloqueio de Raios UV" },
+      { large_text: "90%", small_text: "Transparência (VLT)" },
     ]
   },
   {
