@@ -29,7 +29,7 @@ export class VideoCardComponent {
     {
       id: 2,
       title: 'Comercial',
-      description: 'A fachada do Sicoob foi modernizada com película de proteção solar, proporcionando um visual elegante e moderno, além do conforto térmico e privacidade  para colaboradores e clientes.',
+      description: 'A fachada da Caixa foi modernizada com película de proteção solar, proporcionando um visual elegante e moderno, além do conforto térmico e privacidade para colaboradores e clientes.',
       videoUrl: './videos/comercial2.mp4',
       footer1: 'Modelo de película',
       footer2: 'Silver 20',

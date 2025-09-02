@@ -1,0 +1,4 @@
+@for (item of items(); track $index) {
+  <ng-container *ngTemplateOutlet="itemTemplateRef(); context: {$implicit: item, index: $index}">
+  </ng-container>
+}

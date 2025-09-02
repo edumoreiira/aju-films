@@ -1,4 +1,4 @@
-import { FilmDetail } from "../../components/layout/film-details/film-details.component";
+import { FilmDetail } from "../src/app/components/layout/film-details/film-details.component";
 
 export const HEADER_TEXTS = [
   {

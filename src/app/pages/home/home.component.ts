@@ -9,14 +9,15 @@ import { fadeTrigger } from '../../animations/transitions.animation';
 import { FilmsPreviewComponent } from "../../components/layout/films-preview/films-preview.component";
 import { preloadUrls } from '../../../../assets/preload-urls';
 import { FilmDetailsComponent } from '../../components/layout/film-details/film-details.component';
-import { FILM_DETAILS, HEADER_TEXTS } from './static-data';
+import { FILM_DETAILS, HEADER_TEXTS } from '../../../../assets/static-data';
+import { FilmsInfoComponent } from "../../components/layout/films-info/films-info.component";
 
 
 @Component({
   selector: 'app-home',
   standalone: true,
   imports: [CardsSectionComponent, VideoCardComponent, FooterComponent, IntersectionObserveDirective, NgClass,
-     FilmsPreviewComponent, FilmDetailsComponent],
+    FilmsPreviewComponent, FilmDetailsComponent, FilmsInfoComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
   animations: [fadeTrigger],
