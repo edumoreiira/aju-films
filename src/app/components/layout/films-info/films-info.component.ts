@@ -8,7 +8,7 @@ import { NgClass } from '@angular/common';
   selector: 'article[app-films-info]',
   standalone: true,
   host: {
-    class:'flex flex-col rounded-2xl border border-stone-200 max-w-[700px] mx-auto shadow-sm overflow-hidden'
+    class:'flex flex-col rounded-2xl border border-stone-200 w-[min(700px,100%)] mx-auto shadow-sm overflow-hidden'
   },
   imports: [CarouselComponent, CarouselItemDirective, NgClass],
   templateUrl: './films-info.component.html',

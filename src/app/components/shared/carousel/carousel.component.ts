@@ -18,7 +18,8 @@ export class CarouselItemDirective {
     '(mousedown)': 'onMouseDown($event)',
     '(touchstart)': 'onTouchStart($event)',
     '(dragstart)': '$event.preventDefault()',
-    '(transitionend)': 'onTransitionEnd()'
+    '(transitionend)': 'onTransitionEnd()',
+    '(window:resize)': 'updateItemWidth()'
   },
   imports: [NgTemplateOutlet],
   templateUrl: './carousel.component.html',
@@ -301,12 +302,5 @@ export class CarouselComponent implements OnInit, AfterViewInit, OnDestroy {
     })
     this.navigateToItem(this.state().currentItem, false);
   }
-
-
-  // @HostListener('window:resize', ['$event'])
-  // onResize() {
-  //   this.updateItemWidth();
-  //   this.updateClampedTextsStatus();
-  // }
 
 }
