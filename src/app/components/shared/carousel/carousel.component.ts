@@ -1,5 +1,6 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { AfterViewInit, ChangeDetectionStrategy, Component, contentChild, Directive, ElementRef, inject, model, NgZone, OnInit, output, Renderer2, signal, TemplateRef } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, contentChild, DestroyRef, Directive, ElementRef, inject, input, model, NgZone, OnDestroy, OnInit, output, Renderer2, signal, TemplateRef } from '@angular/core';
+import { interval, Subject, Subscription, takeUntil } from 'rxjs';
 
 @Directive({
   selector: '[carouselItem]',
@@ -24,7 +25,7 @@ export class CarouselItemDirective {
   styleUrl: './carousel.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CarouselComponent implements OnInit, AfterViewInit {
+export class CarouselComponent implements OnInit, AfterViewInit, OnDestroy {
   private zone = inject(NgZone);
   private renderer = inject(Renderer2);
   private el = inject(ElementRef);
@@ -33,25 +34,28 @@ export class CarouselComponent implements OnInit, AfterViewInit {
   private carouselItemElementRef = contentChild.required(CarouselItemDirective, { read: ElementRef });
   // 
   items = model<any[]>([]);
+  autoSlideinterval = input(10000, { alias: 'interval' });
+  autoSlide = input(true);
   // 
   activeItem = output<number>();
-  // autoslide = output<boolean>();
+  autoSlideStatus = output<boolean>();
   // 
   private mouseMoveHandler?: (event: MouseEvent) => void;
   private touchMoveHandler?: (event: TouchEvent) => void;
-  private filmInterval: any;
+  private readonly destroy$ = new Subject<void>;
+  private autoslideSub?: Subscription;
   //
   protected state = signal({
     itemWidth: 0,
     currentItem: 1,
     currentPosition: 0,
     lastMovement: 0,
-    autoslide: false
+    autoSlide: false
   });
 
   ngOnInit(): void {
     this.cloneFirstAndLastFilm();
-    this.startAutoSlide();
+    if(this.autoSlide()) this.startAutoSlide();
   }
 
   ngAfterViewInit(): void {
@@ -59,6 +63,12 @@ export class CarouselComponent implements OnInit, AfterViewInit {
       console.error('Aplique a diretiva `carouselItem` no container do item (ex: <div carouselItem>...</div>)')
     }
     this.updateItemWidth();
+  }
+
+  ngOnDestroy(): void {
+    this.stopAutoSlide();
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   
@@ -84,7 +94,7 @@ export class CarouselComponent implements OnInit, AfterViewInit {
 
   private navigateToItem(index: number, animate: boolean = true) {
     const widthToMove = index * -this.state().itemWidth;
-    if(this.state().autoslide) this.resetAutoSlide();
+    if(this.state().autoSlide) this.resetAutoSlide();
     this.state.update(state => {
       state.currentItem = index;
       state.currentPosition = widthToMove;
@@ -101,8 +111,7 @@ export class CarouselComponent implements OnInit, AfterViewInit {
   protected onMouseDown(event: MouseEvent) {
     if(this.isLastOrFirstItem()) return; // prevent skipping animation on last or first item, applied by onTransitionEnd()
     const element = this.el.nativeElement;
-    console.log(element)
-    const currentAutoSlide = this.state().autoslide;
+    const currentAutoSlide = this.state().autoSlide;
     this.stopAutoSlide();
     this.removeTransitionClasses(element);
     const startMousePosition = event.clientX;
@@ -114,7 +123,7 @@ export class CarouselComponent implements OnInit, AfterViewInit {
   protected onTouchStart(event: TouchEvent) {
     if(this.isLastOrFirstItem()) return;
     const element = this.el.nativeElement;
-    const currentAutoSlide = this.state().autoslide;
+    const currentAutoSlide = this.state().autoSlide;
     this.stopAutoSlide();
     this.removeTransitionClasses(element);
     const startTouch = event.touches[0];
@@ -253,28 +262,30 @@ export class CarouselComponent implements OnInit, AfterViewInit {
   }
 
   startAutoSlide() {
-    // this.zone.runOutsideAngular(() => {
-    //   this.filmInterval = setInterval(() => {
-    //     this.next();
-    //   }, 10000);
-    // })
+    this.zone.runOutsideAngular(() => {
+      const slideInterval = this.autoSlideinterval();
+      const interval$ = interval(slideInterval).pipe(
+        takeUntil(this.destroy$)
+      );
+      this.autoslideSub = interval$.subscribe(() => this.next());
+    })
     this.state.update(state => ({
       ...state,
-      autoslide: true
+      autoSlide: true
     }));
-    // this.autoslide.emit(true);
+    this.autoSlideStatus.emit(true);
   }
 
   stopAutoSlide() {
-    if (this.filmInterval) {
-      clearInterval(this.filmInterval);
-      this.filmInterval = null;
+    if(this.autoslideSub) {
+      this.autoslideSub.unsubscribe();
+      this.autoslideSub = undefined;
     }
     this.state.update(state => ({
       ...state,
-      autoslide: false
+      autoSlide: false
     }));
-    // this.autoslide.emit(false);
+    this.autoSlideStatus.emit(false);
   }
 
   private resetAutoSlide() {

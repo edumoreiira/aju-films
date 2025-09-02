@@ -1,6 +1,6 @@
-<article
+<!-- <article
   class="flex flex-col rounded-2xl border border-stone-200 max-w-[700px] mx-auto shadow-sm overflow-hidden"
->
+> -->
   <div class="bg-stone-200 p-2 flex items-center justify-between">
     <div class="flex items-center">
     @for(item of films ; track $index) {
@@ -30,7 +30,9 @@
   </div>
 
   <app-carousel #carousel [items]="films"
+  [interval]="10000"
   (activeItem)="activeItem = $event"
+  (autoSlideStatus)="autoslide = $event"
   >
     <ng-template let-item let-index="index">
         
@@ -40,9 +42,6 @@
       limitElementHeight() === true ? '18rem' :
       limitElementHeight() === false && currentIndexActive ? '45rem' : '20rem'
     ">
-    <!-- <div #itemEl class="basis-[100%] shrink-0 overflow-hidden flex flex-col justify-between active:cursor-grabbing
-    transition-[max-height] duration-500 ease-out"
-    [style.maxHeight.rem]="limitElementHeight() ? 18 : 28"> -->
       <div class="p-5 pb-2">
         @switch (item.top_seller) {
           @case (true) {
@@ -87,4 +86,4 @@
 
     </ng-template>
   </app-carousel>
-</article>
+<!-- </article> -->

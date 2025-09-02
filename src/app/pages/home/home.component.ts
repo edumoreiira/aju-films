@@ -17,7 +17,7 @@ import { FilmsInfoComponent } from "../../components/layout/films-info/films-inf
   selector: 'app-home',
   standalone: true,
   imports: [CardsSectionComponent, VideoCardComponent, FooterComponent, IntersectionObserveDirective, NgClass,
-    FilmsPreviewComponent, FilmDetailsComponent, FilmsInfoComponent],
+    FilmsPreviewComponent, FilmsInfoComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
   animations: [fadeTrigger],
