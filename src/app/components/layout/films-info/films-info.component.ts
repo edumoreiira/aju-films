@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, signal, viewChildren } from '@angular/core';
 import { FILM_DETAILS } from '../../../../../assets/static-data';
 import { FilmDetail } from '../film-details/film-details.component';
 import { CarouselComponent, CarouselItemDirective } from "../../shared/carousel/carousel.component";
@@ -15,14 +15,39 @@ import { NgClass } from '@angular/common';
   styleUrl: './films-info.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class FilmsInfoComponent {
+export class FilmsInfoComponent implements AfterViewInit {
+  private readonly textsRef = viewChildren('textEl');
+  // 
   films: FilmDetail[] = FILM_DETAILS
   limitElementHeight = signal(true);
-  isTextsClamped = signal([]);
-  activeItem = 0;
-  autoslide = true;
+  isTextsClamped = signal<boolean[]>([]);
+  activeItem = signal(0);
+  autoslide = signal(true);
 
-  disableLimitElementHeight() {
-    return
+  ngAfterViewInit(): void {
+    this.updateClampedTextsStatus();
   }
+
+  private updateClampedTextsStatus() {
+    const texts = (this.textsRef() as ElementRef[]).map(ref => ref.nativeElement);
+    let isTextsClampedArr: boolean[] = [];
+    texts.forEach((element, index) => {
+      isTextsClampedArr.push(element.scrollHeight > element.clientHeight);
+    })
+    this.isTextsClamped.set(isTextsClampedArr);
+  }
+
+  protected disableLimitElementHeight() {
+    this.limitElementHeight.set(false);
+  }
+
+  protected enableLimitElementHeight() {
+    this.limitElementHeight.set(true);
+  }
+
+  protected handleNavigateToItem(index: number) {
+    this.activeItem.set(index);
+    this.enableLimitElementHeight();
+  }
+
 }

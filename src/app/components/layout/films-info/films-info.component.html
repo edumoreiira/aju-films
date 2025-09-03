@@ -9,12 +9,12 @@
         (click)="carousel.setCurrentItem($index)">
           <span class="block h-2.5 w-2.5 rounded-full
           transition-colors"
-          [ngClass]="activeItem === $index ? 'bg-stone-500' : 'bg-stone-300 group-hover:bg-stone-400'"></span>
+          [ngClass]="activeItem() === $index ? 'bg-stone-500' : 'bg-stone-300 group-hover:bg-stone-400'"></span>
         </button>
       
     }
   </div>
-  @if(autoslide) {
+  @if(autoslide()) {
     <button class="p-1"
     (click)="carousel.stopAutoSlide()">
       <i class="fi fi-sr-pause flex text-xs text-stone-500"></i>
@@ -31,12 +31,12 @@
 
   <app-carousel #carousel [items]="films"
   [interval]="10000"
-  (activeItem)="activeItem = $event"
-  (autoSlideStatus)="autoslide = $event"
+  (onNavigateToItem)="handleNavigateToItem($event)"
+  (autoSlideStatus)="autoslide.set($event)"
   >
     <ng-template let-item let-index="index">
         
-    @let currentIndexActive = true;
+    @let currentIndexActive = index - 1 === activeItem();
     <div carouselItem class="flex flex-col justify-between active:cursor-grabbing"
     [style.maxHeight]="
       limitElementHeight() === true ? '18rem' :

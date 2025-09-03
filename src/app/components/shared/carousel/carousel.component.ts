@@ -44,8 +44,8 @@ export class CarouselComponent implements OnInit, AfterViewInit, OnDestroy {
   autoSlideinterval = input(10000, { alias: 'interval' });
   autoSlide = input(true);
   // 
-  activeItem = output<number>();
   autoSlideStatus = output<boolean>();
+  onNavigateToItem = output<number>();
   // 
   private mouseMoveHandler?: (event: MouseEvent) => void;
   private touchMoveHandler?: (event: TouchEvent) => void;
@@ -101,13 +101,14 @@ export class CarouselComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private navigateToItem(index: number, animate: boolean = true) {
     const widthToMove = index * -this.state().itemWidth;
+    const adjustedIndex = index - 1;
     if(this.state().autoSlide) this.resetAutoSlide();
     this.state.update(state => {
       state.currentItem = index;
       state.currentPosition = widthToMove;
       return state;
     })
-    this.activeItem.emit(index - 1);
+    this.onNavigateToItem.emit(adjustedIndex);
     this.translateContainer(widthToMove, animate);
   }
 
@@ -145,7 +146,7 @@ export class CarouselComponent implements OnInit, AfterViewInit, OnDestroy {
       const dy = Math.abs(currentTouch.clientY - startTouchPositionY);
 
       if (direction === 'undecided') {
-        if (dx > 5 || dy > 5) { // threshold para evitar falsos positivos
+        if (dx > 8 || dy > 8) { // threshold para evitar falsos positivos
           direction = dx > dy ? 'horizontal' : 'vertical';
         } else {
           return;
