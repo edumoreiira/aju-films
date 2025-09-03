@@ -104,7 +104,7 @@ export class CarouselComponent implements OnInit, AfterViewInit, OnDestroy {
     const widthToMove = index * -this.state().itemWidth;
     const adjustedIndex = index - 1;
     if(this.state().autoSlide && isNavigatingToActiveIndex) this.resetAutoSlide();
-    if(isNavigatingToActiveIndex) { this.onNavigateToItem.emit(adjustedIndex); } // Emit event only if current item changes
+    if(!isNavigatingToActiveIndex) { this.onNavigateToItem.emit(adjustedIndex); } // Emit event only if current item changes
     this.state.update(state => {
       state.currentItem = index;
       state.currentPosition = widthToMove;
@@ -133,7 +133,7 @@ export class CarouselComponent implements OnInit, AfterViewInit, OnDestroy {
     if(this.isLastOrFirstItem()) return;
     const element = this.el.nativeElement;
     const currentAutoSlide = this.state().autoSlide;
-    this.stopAutoSlide();
+    this.stopAutoSlide({ emit: false });
     this.removeTransitionClasses(element);
     const startTouch = event.touches[0];
     const startTouchPositionX = startTouch.clientX;
@@ -190,7 +190,7 @@ export class CarouselComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private onMouseUp(element: HTMLElement, resumeAutoSlide: boolean) {
-    // if(resumeAutoSlide) this.startAutoSlide();
+    if(resumeAutoSlide) this.startAutoSlide();
     this.addTransitionClasses(element);
     const lastMovement = this.state().lastMovement;
     if(lastMovement > 100) {
@@ -210,7 +210,7 @@ export class CarouselComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private onTouchEnd(element: HTMLElement, resumeAutoSlide: boolean) {
-    // if(resumeAutoSlide) this.startAutoSlide();
+    if(resumeAutoSlide) this.startAutoSlide();
     this.addTransitionClasses(element);
     const lastMovement = this.state().lastMovement;
     if(lastMovement > 100) {
@@ -285,8 +285,8 @@ export class CarouselComponent implements OnInit, AfterViewInit, OnDestroy {
     this.autoSlideStatus.emit(true);
   }
 
-  stopAutoSlide() {
-    if(this.autoslideSub) {
+  stopAutoSlide(options: { emit: boolean } = { emit: true }) {
+    if (this.autoslideSub) {
       this.autoslideSub.unsubscribe();
       this.autoslideSub = undefined;
 
@@ -294,8 +294,9 @@ export class CarouselComponent implements OnInit, AfterViewInit, OnDestroy {
         ...state,
         autoSlide: false
       }));
-      console.log('stopped')
-      this.autoSlideStatus.emit(false);
+      if (options.emit === true) {
+        this.autoSlideStatus.emit(false);
+      }
     }
   }
 
