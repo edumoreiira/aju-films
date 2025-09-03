@@ -33,7 +33,7 @@
   <app-carousel #carousel [items]="films"
   [interval]="10000"
   (onNavigateToItem)="handleNavigateToItem($event)"
-  (autoSlideStatus)="$event"
+  (autoSlideStatus)="handleAutoSlide($event)"
   >
     <ng-template let-item let-index="index">
         

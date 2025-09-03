@@ -46,6 +46,10 @@ export class FilmsInfoComponent implements AfterViewInit {
     this.isTextsClamped.set(isTextsClampedArr);
   }
 
+  handleAutoSlide(status: boolean) {
+    this.autoslide.set(status);
+  }
+
   protected disableLimitElementHeight() {
     this.limitElementHeight.set(false);
   }
