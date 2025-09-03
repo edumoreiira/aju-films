@@ -120,7 +120,7 @@ export class CarouselComponent implements OnInit, AfterViewInit, OnDestroy {
     if(this.isLastOrFirstItem()) return; // prevent skipping animation on last or first item, applied by onTransitionEnd()
     const element = this.el.nativeElement;
     const currentAutoSlide = this.state().autoSlide;
-    this.stopAutoSlide();
+    // this.stopAutoSlide();
     this.removeTransitionClasses(element);
     const startMousePosition = event.clientX;
     this.mouseMoveHandler = (e: MouseEvent) => this.onMouseMove(e, startMousePosition);
@@ -132,7 +132,7 @@ export class CarouselComponent implements OnInit, AfterViewInit, OnDestroy {
     if(this.isLastOrFirstItem()) return;
     const element = this.el.nativeElement;
     const currentAutoSlide = this.state().autoSlide;
-    this.stopAutoSlide();
+    // this.stopAutoSlide();
     this.removeTransitionClasses(element);
     const startTouch = event.touches[0];
     const startTouchPositionX = startTouch.clientX;
