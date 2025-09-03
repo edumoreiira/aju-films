@@ -2,6 +2,7 @@ import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, signal, 
 import { FILM_DETAILS } from '../../../../../assets/static-data';
 import { CarouselComponent, CarouselItemDirective } from "../../utils/carousel/carousel.component";
 import { NgClass } from '@angular/common';
+import { createAnimation } from '../../../animations/transitions.animation';
 
 export interface FilmDetail {
   title: string;
@@ -20,6 +21,7 @@ export interface FilmDetail {
   imports: [CarouselComponent, CarouselItemDirective, NgClass],
   templateUrl: './films-info.component.html',
   styleUrl: './films-info.component.scss',
+  animations: [createAnimation('fadeIn', { transform: 'translateY(20px)' })],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FilmsInfoComponent implements AfterViewInit {

@@ -23,36 +23,40 @@
         <div class="main-card-info bg-white -bottom-[1px] absolute translate-x-1/2 right-1/2 md:translate-x-0 md:right-0 
         w-[calc(100%-60px)] sm:w-[calc(100%-80px)] md:max-w-[60%] lg:max-w-[50%] xl:p-8 p-6 py-4 sm:py-6 pb-0 md:rounded-tr-none sm:rounded-t-3xl 
         rounded-t-[2rem] flex sm:flex-row flex-col sm:items-start items-center sm:gap-6 gap-2 h-[130px] xs:h-[144px] sm:h-[auto] sm:max-h-none">
-            <div class="flex-1 fade-in delay-1 sm:block hidden">
-                <h2 class="font-medium 2xl:text-5xl xl:text-4xl xs:text-3xl text-2xl mb-2">7 anos</h2>
-                <p class="text-stone-600 xl:text-base text-sm">de excelência em aplicação de películas em residências e comércios.</p>
-            </div>
-            <div class="flex-1 fade-in delay-2 sm:block hidden">
-                <h2 class="font-medium 2xl:text-5xl xl:text-4xl xs:text-3xl text-2xl mb-2">1.500+</h2>
-                <p class="text-stone-600 xl:text-base text-sm">janelas transformadas com películas de alta performance.</p>
-            </div>
-            <div class="flex-1 fade-in delay-3 sm:block hidden">
-                <h2 class="font-medium 2xl:text-5xl xl:text-4xl xs:text-3xl text-2xl mb-2">10+ tipos</h2>
-                <p class="text-stone-600 xl:text-base text-sm">de películas para garantir proteção solar, privacidade, segurança e estética.</p>
-            </div>
+            @if(documentListener.isSm()) {
+                <div class="flex-1 fade-in delay-1 sm:block hidden">
+                    <h2 class="font-medium 2xl:text-5xl xl:text-4xl xs:text-3xl text-2xl mb-2">7 anos</h2>
+                    <p class="text-stone-600 xl:text-base text-sm">de excelência em aplicação de películas em residências e comércios.</p>
+                </div>
+                <div class="flex-1 fade-in delay-2 sm:block hidden">
+                    <h2 class="font-medium 2xl:text-5xl xl:text-4xl xs:text-3xl text-2xl mb-2">1.500+</h2>
+                    <p class="text-stone-600 xl:text-base text-sm">janelas transformadas com películas de alta performance.</p>
+                </div>
+                <div class="flex-1 fade-in delay-3 sm:block hidden">
+                    <h2 class="font-medium 2xl:text-5xl xl:text-4xl xs:text-3xl text-2xl mb-2">10+ tipos</h2>
+                    <p class="text-stone-600 xl:text-base text-sm">de películas para garantir proteção solar, privacidade, segurança e estética.</p>
+                </div>
+            }
             
             <!-- 640px less -->
-            @let selectedText = headerTexts[selectedHeaderTextIndex()];
-            <div class="flex-1 fade-in delay-1 text-center sm:hidden" [@fadeTrigger]="selectedHeaderTextIndex()">
-                <h2 class="xs:text-5xl text-4xl xs:font-normal font-medium mb-2">{{ selectedText.largeText }}</h2>
-                <p class="text-stone-600">{{ selectedText.smallText }}</p>
-            </div>
-            <!-- items-bar -->
-            <div class="flex items-center justify-center sm:hidden">
-                @for (item of headerTexts; track $index) {
-                    @let isActive = $index === selectedHeaderTextIndex();
-                    <button class="opacity-30 hover:opacity-50 transition-opacity p-2"
-                    (click)="setHeaderText($index)">
-                    <div class="h-2.5 bg-stone-600 rounded-full transition-all duration-500"
-                    [ngClass]="isActive ? 'w-10' : 'w-2.5'"></div>
-                    </button>
-                }
-            </div>
+            @if(documentListener.isXs()) {
+                @let selectedText = headerTexts[selectedHeaderTextIndex()];
+                <div class="flex-1 fade-in delay-1 text-center sm:hidden" [@fadeTrigger]="selectedHeaderTextIndex()">
+                    <h2 class="xs:text-5xl text-4xl xs:font-normal font-medium mb-2">{{ selectedText.largeText }}</h2>
+                    <p class="text-stone-600">{{ selectedText.smallText }}</p>
+                </div>
+                <!-- items-bar -->
+                <div class="flex items-center justify-center sm:hidden">
+                    @for (item of headerTexts; track $index) {
+                        @let isActive = $index === selectedHeaderTextIndex();
+                        <button class="opacity-30 hover:opacity-50 transition-opacity p-2"
+                        (click)="setHeaderText($index)">
+                        <div class="h-2.5 bg-stone-600 rounded-full transition-all duration-500"
+                        [ngClass]="isActive ? 'w-10' : 'w-2.5'"></div>
+                        </button>
+                    }
+                </div>
+            }
             <!-- 640px less -->
 
         </div>

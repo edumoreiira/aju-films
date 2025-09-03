@@ -10,6 +10,7 @@ import { FilmsPreviewComponent } from "../../components/layout/films-preview/fil
 import { preloadUrls } from '../../../../assets/preload-urls';
 import { FILM_DETAILS, HEADER_TEXTS } from '../../../../assets/static-data';
 import { FilmsInfoComponent } from "../../components/layout/films-info/films-info.component";
+import { DocumentListenerService } from '../../services/document-listener.service';
 
 
 @Component({
@@ -25,6 +26,8 @@ import { FilmsInfoComponent } from "../../components/layout/films-info/films-inf
 export class HomeComponent implements OnInit {
   private preloadService = inject(PreloadFilesService);
   private zone = inject(NgZone);
+  protected documentListener = inject(DocumentListenerService);
+  // 
   videosHasLoaded = false;
   selectedHeaderTextIndex = signal(0);
   headerTexts = HEADER_TEXTS;
