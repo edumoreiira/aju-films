@@ -293,9 +293,7 @@ export class CarouselComponent implements OnInit, AfterViewInit, OnDestroy {
         ...state,
         autoSlide: false
       }));
-      setTimeout(() => {
-        this.autoSlideStatus.emit(false); //bug click
-      },1);
+      this.autoSlideStatus.emit(false);
     }
   }
 
