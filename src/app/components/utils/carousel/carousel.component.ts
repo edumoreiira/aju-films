@@ -289,10 +289,10 @@ export class CarouselComponent implements OnInit, AfterViewInit, OnDestroy {
       this.autoslideSub.unsubscribe();
       this.autoslideSub = undefined;
 
-      this.state.update(state => ({
-        ...state,
-        autoSlide: false
-      }));
+      // this.state.update(state => ({
+      //   ...state,
+      //   autoSlide: false
+      // }));
       this.autoSlideStatus.emit(false);
     }
   }
