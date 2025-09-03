@@ -100,9 +100,11 @@ export class CarouselComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private navigateToItem(index: number, animate: boolean = true) {
+    const isNavigatingToActiveIndex = this.state().currentItem === index;
     const widthToMove = index * -this.state().itemWidth;
     const adjustedIndex = index - 1;
-    if(this.state().autoSlide) this.resetAutoSlide();
+    if(this.state().autoSlide && isNavigatingToActiveIndex) this.resetAutoSlide();
+    if(!isNavigatingToActiveIndex) { this.onNavigateToItem.emit(adjustedIndex); } // Emit event only if current item changes
     this.state.update(state => {
       state.currentItem = index;
       state.currentPosition = widthToMove;
@@ -132,7 +134,7 @@ export class CarouselComponent implements OnInit, AfterViewInit, OnDestroy {
     if(this.isLastOrFirstItem()) return;
     const element = this.el.nativeElement;
     const currentAutoSlide = this.state().autoSlide;
-    this.stopAutoSlide();
+    this.stopAutoSlide({ emit: false });
     this.removeTransitionClasses(element);
     const startTouch = event.touches[0];
     const startTouchPositionX = startTouch.clientX;
@@ -284,16 +286,19 @@ export class CarouselComponent implements OnInit, AfterViewInit, OnDestroy {
     this.autoSlideStatus.emit(true);
   }
 
-  stopAutoSlide() {
-    if(this.autoslideSub) {
+  stopAutoSlide(options: { emit: boolean } = { emit: true }) {
+    if (this.autoslideSub) {
       this.autoslideSub.unsubscribe();
       this.autoslideSub = undefined;
+
+      this.state.update(state => ({
+        ...state,
+        autoSlide: false
+      }));
+      if (options.emit === true) {
+        this.autoSlideStatus.emit(false);
+      }
     }
-    this.state.update(state => ({
-      ...state,
-      autoSlide: false
-    }));
-    this.autoSlideStatus.emit(false);
   }
 
   private resetAutoSlide() {

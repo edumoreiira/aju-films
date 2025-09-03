@@ -50,9 +50,10 @@
                     @for (item of headerTexts; track $index) {
                         @let isActive = $index === selectedHeaderTextIndex();
                         <button class="opacity-30 hover:opacity-50 transition-opacity p-2"
+                        [attr.aria-label]="'Mensagem ' + ($index + 1)"
                         (click)="setHeaderText($index)">
-                        <div class="h-2.5 bg-stone-600 rounded-full transition-all duration-500"
-                        [ngClass]="isActive ? 'w-10' : 'w-2.5'"></div>
+                            <div class="h-2.5 bg-stone-600 rounded-full transition-all duration-500"
+                            [ngClass]="isActive ? 'w-10' : 'w-2.5'"></div>
                         </button>
                     }
                 </div>
