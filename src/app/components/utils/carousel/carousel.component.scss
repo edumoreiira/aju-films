@@ -1,13 +1,13 @@
 ::ng-deep.carousel-item {
   // it creates an invisible overlay to fix safari bug not recognizing the
   // element's size and not applying event listeners on touch
-  // &::after { 
-  //   content: '';
-  //   position: absolute;
-  //   top: 0;
-  //   right: 0;
-  //   bottom: 0;
-  //   left: 0;
-  //   pointer-events: none;
-  // }
+  &::after { 
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    pointer-events: none;
+  }
 }
