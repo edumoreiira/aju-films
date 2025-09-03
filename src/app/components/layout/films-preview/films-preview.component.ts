@@ -6,6 +6,7 @@ import { Knob } from 'primeng/knob';
 import { Select } from 'primeng/select';
 import { NgClass } from '@angular/common';
 import { createAnimation } from '../../../animations/transitions.animation';
+import { DocumentListenerService } from '../../../services/document-listener.service';
 
 interface Film {
     label: string;
@@ -31,6 +32,7 @@ type Place = 'exterior' | 'interior' | 'cozinha' | 'escritorio' | 'playground';
 export class FilmsPreviewComponent implements AfterViewInit {
   private renderer = inject(Renderer2);
   private el = inject(ElementRef);
+  protected documentListener = inject(DocumentListenerService);
   selectOptions: any[] = [{ label: 'Interno', value: 'interior' },{ label: 'Externo', value: 'exterior' }];
   knobValue: number = 0;
   userHasInteracted = false;

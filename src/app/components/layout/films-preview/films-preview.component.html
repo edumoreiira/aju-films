@@ -57,10 +57,12 @@
     <p-imagecompare class="rounded-3xl max-h-[38rem] sm:h-auto h-[28rem] block" >
       <ng-template #left>
           <img class="sm:object-fill object-cover" [src]="leftImageUrl"
+          alt="Janela sem película à esquerda"
           [ngClass]="{ 'object-left': leitosoSelected }" />
       </ng-template>
       <ng-template #right>
           <img class="sm:object-fill object-cover" [src]="rightImageUrl"
+          alt="Janela com película {{ selectedFilm?.label }} à direita"
           [ngClass]="{ 'object-left': leitosoSelected }" />
       </ng-template>
     </p-imagecompare>

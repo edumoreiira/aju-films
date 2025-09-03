@@ -6,6 +6,7 @@
     @for(item of films ; track $index) {
       
         <button class="py-1 px-2 sm:px-1.5 cursor-pointer group"
+        [attr.aria-label]="'Ver detalhes do item ' +  item.title "
         (click)="carousel.setCurrentItem($index)">
           <span class="block h-2.5 w-2.5 rounded-full
           transition-colors"
@@ -18,13 +19,13 @@
     <button class="p-1"
     (click)="carousel.stopAutoSlide()">
       <i class="fi fi-sr-pause flex text-xs text-stone-500"></i>
-      <span class="sr-only">Pausar auto-seleção</span>
+      <span class="sr-only">Pausar auto-seleção dos itens</span>
     </button>
   } @else {
     <button class="p-1"
     (click)="carousel.startAutoSlide()">
       <i class="fi fi-sr-play flex text-xs text-stone-500"></i>
-      <span class="sr-only">Iniciar auto-seleção</span>
+      <span class="sr-only">Retomar auto-seleção dos itens</span>
     </button>
   }
   </div>
@@ -64,7 +65,8 @@
       @if(isTextsClamped()[index] && limitElementHeight() === true) {
         <div @fadeIn class="flex items-end justify-center
         absolute bottom-0 left-0 w-full h-[60px] from-25% bg-gradient-to-t from-white to-transparent">
-          <button class="text-sm px-4 py-1 rounded-xl text-stone-800"
+          <button class="text-sm px-4 py-1 rounded-xl text-stone-800 z-20" type="button"
+          (mousedown)="$event.stopPropagation()"
           (click)="disableLimitElementHeight()">Mostrar Mais</button>
         </div>
       }
