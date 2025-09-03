@@ -102,7 +102,7 @@ export class CarouselComponent implements OnInit, AfterViewInit, OnDestroy {
   private navigateToItem(index: number, animate: boolean = true) {
     const widthToMove = index * -this.state().itemWidth;
     const adjustedIndex = index - 1;
-    // if(this.state().autoSlide) this.resetAutoSlide();
+    if(this.state().autoSlide) this.resetAutoSlide();
     if(this.state().currentItem !== index) { this.onNavigateToItem.emit(adjustedIndex); } // Emit event only if current item changes
     this.state.update(state => {
       state.currentItem = index;
@@ -293,7 +293,9 @@ export class CarouselComponent implements OnInit, AfterViewInit, OnDestroy {
         ...state,
         autoSlide: false
       }));
-      this.autoSlideStatus.emit(false);
+      setTimeout(() => {
+        this.autoSlideStatus.emit(false); //bug click
+      },1);
     }
   }
 
