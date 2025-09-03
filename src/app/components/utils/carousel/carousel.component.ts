@@ -100,10 +100,11 @@ export class CarouselComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private navigateToItem(index: number, animate: boolean = true) {
+    const isNavigatingToActiveIndex = this.state().currentItem === index;
     const widthToMove = index * -this.state().itemWidth;
     const adjustedIndex = index - 1;
-    if(this.state().autoSlide) this.resetAutoSlide();
-    if(this.state().currentItem !== index) { this.onNavigateToItem.emit(adjustedIndex); } // Emit event only if current item changes
+    if(this.state().autoSlide && isNavigatingToActiveIndex) this.resetAutoSlide();
+    if(isNavigatingToActiveIndex) { this.onNavigateToItem.emit(adjustedIndex); } // Emit event only if current item changes
     this.state.update(state => {
       state.currentItem = index;
       state.currentPosition = widthToMove;
@@ -189,7 +190,7 @@ export class CarouselComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private onMouseUp(element: HTMLElement, resumeAutoSlide: boolean) {
-    if(resumeAutoSlide) this.startAutoSlide();
+    // if(resumeAutoSlide) this.startAutoSlide();
     this.addTransitionClasses(element);
     const lastMovement = this.state().lastMovement;
     if(lastMovement > 100) {
@@ -293,6 +294,7 @@ export class CarouselComponent implements OnInit, AfterViewInit, OnDestroy {
         ...state,
         autoSlide: false
       }));
+      console.log('stopped')
       this.autoSlideStatus.emit(false);
     }
   }
