@@ -210,7 +210,7 @@ export class CarouselComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private onTouchEnd(element: HTMLElement, resumeAutoSlide: boolean) {
-    if(resumeAutoSlide) this.startAutoSlide();
+    // if(resumeAutoSlide) this.startAutoSlide();
     this.addTransitionClasses(element);
     const lastMovement = this.state().lastMovement;
     if(lastMovement > 100) {
