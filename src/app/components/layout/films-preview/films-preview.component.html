@@ -12,7 +12,7 @@
         (ngModelChange)="onFilmChange($event)" />
       </div>
 
-      @if(selectedFilm?.value === 'g') {
+      @if(selectedFilm?.value === 'g' && documentListener.isSm()) {
        <!-- medidor de tonalidade -->
        <div class="sm:flex hidden items-center sm:justify-normal justify-between gap-6 bg-black/20 px-3 py-1 rounded-2xl"
        @knobPopUp>
@@ -66,7 +66,7 @@
           [ngClass]="{ 'object-left': leitosoSelected }" />
       </ng-template>
     </p-imagecompare>
-    @if(selectedFilm?.value === 'g') {
+    @if(selectedFilm?.value === 'g' && documentListener.isXs()) {
       <!-- medidor de tonalidade -->
       <div class="flex sm:hidden items-center sm:justify-normal justify-between gap-6 bg-black/20 px-3 py-1 rounded-2xl
       absolute top-4 left-1/2 -translate-x-1/2" @knobPopUpMobile>
