@@ -37,7 +37,7 @@
     <ng-template let-item let-index="index">
         
     @let currentIndexActive = true;
-    <div carouselItem class="basis-[100%] shrink-0 overflow-hidden flex flex-col justify-between active:cursor-grabbing"
+    <div carouselItem class="flex flex-col justify-between active:cursor-grabbing"
     [style.maxHeight]="
       limitElementHeight() === true ? '18rem' :
       limitElementHeight() === false && currentIndexActive ? '45rem' : '20rem'

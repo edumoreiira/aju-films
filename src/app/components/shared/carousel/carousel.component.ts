@@ -6,7 +6,13 @@ import { interval, Subject, Subscription, takeUntil } from 'rxjs';
   selector: '[carouselItem]',
   standalone: true
 })
-export class CarouselItemDirective {
+export class CarouselItemDirective implements OnInit {
+  private el = inject(ElementRef);
+
+  ngOnInit(): void {
+    this.el.nativeElement.classList.add('carousel-item');
+    this.el.nativeElement.style.position = 'relative';
+  }
 
 }
 
@@ -14,7 +20,7 @@ export class CarouselItemDirective {
   selector: 'app-carousel',
   standalone: true,
   host: {
-    class: 'flex flex-nowrap w-full transition-transform duration-500',
+    class: 'w-full transition-transform duration-500 grid grid-flow-col auto-cols-[100%]',
     '(mousedown)': 'onMouseDown($event)',
     '(touchstart)': 'onTouchStart($event)',
     '(dragstart)': '$event.preventDefault()',
