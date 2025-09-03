@@ -64,7 +64,7 @@
       text-stone-600 shrink min-h-0 overflow-ellipsis overflow-hidden">{{ item.text }}
       @if(isTextsClamped()[index] && limitElementHeight() === true) {
         <div @fadeIn class="flex items-end justify-center
-        absolute bottom-0 left-0 w-full h-[60px] from-25% bg-gradient-to-t from-white to-transparent">
+        absolute bottom-0 left-0 w-full h-[60px] from-25% bg-gradient-to-t from-white to-transparent z-20">
           <button class="text-sm px-4 py-1 rounded-xl text-stone-800 z-20" type="button"
           (click)="disableLimitElementHeight()">Mostrar Mais</button>
         </div>
