@@ -1,14 +1,21 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, signal, viewChildren } from '@angular/core';
 import { FILM_DETAILS } from '../../../../../assets/static-data';
-import { FilmDetail } from '../film-details/film-details.component';
-import { CarouselComponent, CarouselItemDirective } from "../../shared/carousel/carousel.component";
+import { CarouselComponent, CarouselItemDirective } from "../../utils/carousel/carousel.component";
 import { NgClass } from '@angular/common';
+
+export interface FilmDetail {
+  title: string;
+  top_seller?: boolean;
+  text: string;
+  info: { large_text: string, small_text: string }[];
+}
 
 @Component({
   selector: 'article[app-films-info]',
   standalone: true,
   host: {
-    class:'flex flex-col rounded-2xl border border-stone-200 w-[min(700px,100%)] mx-auto shadow-sm overflow-hidden'
+    class:'flex flex-col rounded-2xl border border-stone-200 w-[min(700px,100%)] mx-auto shadow-sm overflow-hidden',
+    '(window:resize)': 'updateClampedTextsStatus()'
   },
   imports: [CarouselComponent, CarouselItemDirective, NgClass],
   templateUrl: './films-info.component.html',
