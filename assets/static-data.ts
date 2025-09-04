@@ -87,21 +87,35 @@ export const FILM_DETAILS: FilmDetail[] = [
   },
 ];
 
-
-
-// •Linha Térmica Transparente – Película Transparente com até 90% de transparência e bloqueio de Infravermelho/Calor (IR) de até 61% e UV de 99,9%. Utilizada em vitrines e vidros que não podem alterar a fachada, ideal para reduzir o Calor e Filtrar os Raio UV, evitando desbotamento de móveis e objetos. 
-
-
-// •Linha Semiprofissional – Película Fumê bastante utilizada em instalações comerciais como linha tradicional, sem rejeição de calor, apenas para estética e privacidade em determinados ambientes, como por exemplo: portas e janelas internas de escritórios. Disponíveis em transparência 0,5% (G5), 20% (G20) e 35% (G35). 
-
-// •Linha Carbono – Película Fumê de Carbono, com duplo poliéster e rejeição de calor. Proteção  de até 99% contra os raios ultravioletas e até 41% infravermelho/calor. Excelente visibilidade de dentro para fora. Disponíveis em transparência 0,5% (G5), 20% (G20), 35% (G35) e 50% (G50).
-
-// •Linha Premium Nano Cerâmica – Película Fumê de Alta Performance com Tecnologia Nanoceramic em sua composição. Oferece 10x mais proteção contra raios UV e Infravermelho. Conservando os interiores e evitando desbotamentos e economia com uso do ar-condicionado. Perfeito para quem deseja alta proteção contra o sol. A redução da temperatura é sentida imediatamente após a instalação do produto. Disponíveis em transparência 0,5% (G5), 20% (G20), 35% (G35) e 50% (G50). 
-
-// •Linha Blackout – Película Blackout Preto, com 100% do bloqueia da luz, e rejeição de calor. Proteção de até 99% contra os raios ultravioletas e até 40% infravermelho/calor. Ideal para substituição de cortinas e escurecimento total em quartos. 
-
-// •Linha Espelhada – Película Espelhada, proporciona ao ambiente um recurso privativo e estético valorizando o imóvel, além de reduzir significativamente o calor que passa pelos vidros nos ambientes em até 84% e bloqueando os raios UV em 99%.
-
-// * Linha Segurança/Proteção – Película de Segurança, oferece proteção contra vidros estilhaçados. Funciona mantendo o vidro quebrado no lugar, no caso de um impacto, aumenta a resistência do vidro, evitando acidentes graves, além de conter ações de vândalos. 
-
-// * Linha Decorativa – Para criar ambientes privativos com formatos diferenciados, sem a perda de luz. Entre as opções: Jateado, White Out (Branco Leitoso).
+export const IMAGES_PREVIEW_URL = {
+  left: {
+    interior: "images/window-preview/interior.webp",
+    exterior: "images/window-preview/exterior.webp",
+    cozinha: "images/window-preview/cozinha.webp",
+    escritorio: "images/window-preview/escritorio.webp",
+    playground: "images/window-preview/playground.webp"
+  },
+  right: {
+    interior: {
+      espelhado: "images/window-preview/interior-35.webp",
+      blackout: "images/window-preview/interior-100.webp",
+      transparente_termica: "images/window-preview/g70-interior.webp",
+      G5: "images/window-preview/interior-50.webp",
+      G20: "images/window-preview/interior-50.webp",
+      G35: "images/window-preview/interior-35.webp",
+      G50: "images/window-preview/interior-35.webp"
+    },
+    exterior: {
+      espelhado: "images/window-preview/exterior-espelhado.webp",
+      blackout: "images/window-preview/g5-exterior.webp",
+      transparente_termica: "images/window-preview/g70-exterior.webp",
+      G5: "images/window-preview/g5-exterior.webp",
+      G20: "images/window-preview/g20-exterior.webp",
+      G35: "images/window-preview/g35-exterior.webp",
+      G50: "images/window-preview/g50-exterior.webp"
+    },
+    cozinha: "images/window-preview/cozinha-jateado-branco.webp",
+    escritorio: "images/window-preview/escritorio-jateada-fosca2.webp",
+    playground: "images/window-preview/playground-seguranca.webp"
+  }
+}

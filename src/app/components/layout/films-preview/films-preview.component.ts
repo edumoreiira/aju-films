@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, inject, Renderer2, signal } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, computed, ElementRef, inject, Renderer2, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ImageCompareModule } from 'primeng/imagecompare';
 import { SelectButtonModule } from 'primeng/selectbutton';
@@ -7,6 +7,7 @@ import { Select } from 'primeng/select';
 import { NgClass } from '@angular/common';
 import { createAnimation } from '../../../animations/transitions.animation';
 import { DocumentListenerService } from '../../../services/document-listener.service';
+import { IMAGES_PREVIEW_URL } from '../../../../../assets/static-data';
 
 interface Film {
     label: string;
@@ -14,6 +15,29 @@ interface Film {
 }
 
 type Place = 'exterior' | 'interior' | 'cozinha' | 'escritorio' | 'playground';
+
+interface InteriorExteriorImages {
+  espelhado: string;
+  blackout: string;
+  transparente_termica: string;
+  G5: string;
+  G20: string;
+  G35: string;
+  G50: string;
+}
+
+interface RightImageLocations {
+  interior: InteriorExteriorImages;
+  exterior: InteriorExteriorImages;
+  cozinha: string;
+  escritorio: string;
+  playground: string;
+}
+
+interface ImageUrls {
+  left: Record<Place, string>;
+  right: RightImageLocations;
+}
 
 @Component({
   selector: 'app-films-preview',
@@ -33,93 +57,63 @@ export class FilmsPreviewComponent implements AfterViewInit {
   private renderer = inject(Renderer2);
   private el = inject(ElementRef);
   protected documentListener = inject(DocumentListenerService);
-  selectOptions: any[] = [{ label: 'Interno', value: 'interior' },{ label: 'Externo', value: 'exterior' }];
-  knobValue: number = 0;
-  userHasInteracted = false;
-  films: Film[] = [
+  // signals
+  knobValue = signal(0);
+  userHasInteracted = signal(false);
+  selectedFilm = signal<Film | undefined>(undefined);
+  currentLocation = signal<Place>('cozinha');
+
+  //static data
+  readonly selectOptions: any[] = [{ label: 'Interno', value: 'interior' },{ label: 'Externo', value: 'exterior' }];
+  readonly films: Film[] = [
     { label: 'Fumê', value: 'g' },
     { label: 'Espelhado', value: 'espelhado' },
-    { label: 'Jateado Fosco', value: 'jateado-fosco' },
-    { label: 'Branco Leitoso', value: 'jateado-leitoso' },
+    { label: 'Jateado Fosco', value: 'jateado_fosco' },
+    { label: 'Branco Leitoso', value: 'jateado_leitoso' },
     { label: 'Blackout', value: 'blackout' },
     { label: 'Segurança', value: 'seguranca' },
-    { label: 'Transparente Térmica', value: 'transparente-termica' }
+    { label: 'Transparente Térmica', value: 'transparente_termica' }
   ];
-  selectedFilm: Film | undefined = undefined;
+  private readonly imagesUrl: ImageUrls = IMAGES_PREVIEW_URL;
 
-  currentLocation: Place = 'cozinha';
-
-  get knobLabel(): string {
-    switch(this.knobValue) {
-      case 0:
-        return 'G-50';
-      case 1:
-        return 'G-35';
-      case 2:
-        return 'G-20';
-      case 3:
-        return 'G-5';
-      default:
-        return '0';
+  readonly knobLabel = computed<Film>(() =>  {
+    switch(this.knobValue()) {
+      case 0: return { label:'G-50', value: 'G50'};
+      case 1: return { label:'G-35', value: 'G35'};
+      case 2: return { label:'G-20', value: 'G20'};
+      case 3: return { label:'G-5', value: 'G5'};
+      default: return { label:'0', value: '0'};
     }
-  }
+  });
 
-  imagesUrl = {
-    left: {
-      "interior": "images/window-preview/interior.webp",
-      "exterior": "images/window-preview/exterior.webp",
-      "cozinha": "images/window-preview/cozinha.webp",
-      "escritorio": "images/window-preview/escritorio.webp",
-      "playground": "images/window-preview/playground.webp"
-    },
-    right: {
-      "interior": {
-        "espelhado": "images/window-preview/interior-35.webp",
-        "blackout": "images/window-preview/interior-100.webp",
-        "transparente-termica": "images/window-preview/g70-interior.webp",
-        "G-5": "images/window-preview/interior-50.webp",
-        "G-20": "images/window-preview/interior-50.webp",
-        "G-35": "images/window-preview/interior-35.webp",
-        "G-50": "images/window-preview/interior-35.webp",
-      },
-      "exterior": {
-        "espelhado": "images/window-preview/exterior-espelhado.webp",
-        "blackout": "images/window-preview/g5-exterior.webp",
-        "transparente-termica": "images/window-preview/g70-exterior.webp",
-        "G-5": "images/window-preview/g5-exterior.webp",
-        "G-20": "images/window-preview/g20-exterior.webp",
-        "G-35": "images/window-preview/g35-exterior.webp",
-        "G-50": "images/window-preview/g50-exterior.webp",
-      },
-      "cozinha": 'images/window-preview/cozinha-jateado-branco.webp',
-      "escritorio": 'images/window-preview/escritorio-jateada-fosca2.webp',
-      "playground": 'images/window-preview/playground-seguranca.webp'
-    }
-  }
+  readonly leftImageUrl = computed(() => this.imagesUrl.left[this.currentLocation()]);
 
-  get leftImageUrl(): string {
-    return this.imagesUrl.left[this.currentLocation];
-  }
+  readonly rightImageUrl = computed(() => {
+    const location = this.currentLocation();
+    const rightImages = this.imagesUrl.right;
 
-  get rightImageUrl(): string {
-    switch (this.currentLocation) {
-      case 'cozinha':
-        return this.imagesUrl.right.cozinha;
-      case 'escritorio':
-        return this.imagesUrl.right.escritorio;
-      case 'playground':
-        return this.imagesUrl.right.playground;
+    switch (location) { 
+      case 'cozinha': return rightImages.cozinha;
+      case 'escritorio': return rightImages.escritorio;
+      case 'playground': return rightImages.playground;
     }
 
-    const key = (this.imagesUrl.right[this.currentLocation] as { [key: string]: string })
+    // interior and exterior
+    const filmImages = rightImages[location];
+    const film = this.selectedFilm();
 
-    if(this.selectedFilm?.value === 'g') {
-      const selected_g_film = this.knobLabel
-      return key[selected_g_film];
+    // g family
+    if (film?.value === 'g') {
+      const gFilmKey = this.knobLabel().value as keyof InteriorExteriorImages;
+      return filmImages[gFilmKey];
     }
 
-    return key[this.selectedFilm?.value || 'espelhado'];
-  }
+    // others
+    const filmKey = (film?.value || 'espelhado') as keyof InteriorExteriorImages;
+    return filmImages[filmKey];
+
+  })
+
 
   ngAfterViewInit(): void {
     const element = this.el.nativeElement;
@@ -127,29 +121,38 @@ export class FilmsPreviewComponent implements AfterViewInit {
     this.renderer.listen(range, 'input', (event) => {
       const value = parseInt((event.target as HTMLInputElement).value);
       if (value >= 60 || value <= 40) { // Check if the user has interacted with the slider
-        this.userHasInteracted = true;
+        this.userHasInteracted.set(true);
       }
     });
   }
 
 
-  onFilmChange(film: Film) {
-    this.userHasInteracted = false;
+  protected onFilmChange(film: Film | undefined) {
+    if(!film) return;
+
+    this.userHasInteracted.set(false);
     switch (film.value) {
-      case 'jateado-fosco':
-        this.currentLocation = 'escritorio';
+      case 'jateado_fosco':
+        this.currentLocation.set('escritorio');
         break;
-      case 'jateado-leitoso':
-        this.currentLocation = 'cozinha';
+      case 'jateado_leitoso':
+        this.currentLocation.set('cozinha');
         break;
       case 'seguranca':
-      this.currentLocation = 'playground';
+        this.currentLocation.set('playground');
         break;
       default:
-        this.currentLocation = 'exterior';
+        this.currentLocation.set('exterior');
         break;
     }
   }
 
+protected decrementKnobValue(): void {
+  this.knobValue.update(v => v - 1);
+}
+
+protected incrementKnobValue(): void {
+  this.knobValue.update(v => v + 1);
+}
 
 }

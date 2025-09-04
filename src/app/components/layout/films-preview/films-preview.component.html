@@ -1,7 +1,9 @@
 <div class="flex flex-col gap-4 relative">
   <div class="flex sm:flex-col flex-col-reverse sm:items-start gap-4 sm:absolute sm:top-5 sm:left-5 sm:z-10">
     <div class="flex sm:flex-row flex-col bg-stone-100 sm:bg-black/20 p-3 rounded-2xl">
-        @if(selectedFilm?.value !== 'jateado-fosco' && selectedFilm?.value !== 'jateado-leitoso' && selectedFilm !== undefined) {
+      @let film = selectedFilm();
+      @let otherLocations = film?.value !== 'jateado_fosco' && film?.value !== 'jateado_leitoso' && film?.value !== 'seguranca' && film !== undefined;
+        @if(otherLocations) {
         <p-selectbutton [options]="selectOptions" [(ngModel)]="currentLocation"
         optionLabel="label" optionValue="value" aria-labelledby="basic"
         size="large" [allowEmpty]="false"
@@ -12,24 +14,24 @@
         (ngModelChange)="onFilmChange($event)" />
       </div>
 
-      @if(selectedFilm?.value === 'g' && documentListener.isSm()) {
+      @if(film?.value === 'g' && documentListener.isSm()) {
        <!-- medidor de tonalidade -->
        <div class="sm:flex hidden items-center sm:justify-normal justify-between gap-6 bg-black/20 px-3 py-1 rounded-2xl"
        @knobPopUp>
          <button class="sm:p-1.5 p-3 rounded-xl border border-stone-200 text-stone-200 sm:text-normal text-lg
          enabled:hover:bg-white/20 enabled:active:bg-white/30 disabled:cursor-not-allowed transition-all" 
-         [disabled]="knobValue <= 0"
-         (click)="knobValue = knobValue - 1" >
+         [disabled]="knobValue() <= 0"
+         (click)="decrementKnobValue()" >
            <i class="flex fi fi-rr-minus-small"></i>
          </button>
          
          <p-knob [(ngModel)]="knobValue" size="60" min="0" max="3" step="1"
-         textColor="#ffffff" rangeColor="hsl(0deg 0% 100% / 40%)" valueColor="white" [valueTemplate]="knobLabel"/>
+         textColor="#ffffff" rangeColor="hsl(0deg 0% 100% / 40%)" valueColor="white" [valueTemplate]="knobLabel().label"/>
    
          <button class="sm:p-1.5 p-3 rounded-xl border border-stone-200 text-stone-200 sm:text-normal text-lg
          enabled:hover:bg-white/20 enabled:active:bg-white/30 disabled:cursor-not-allowed transition-all"
-         [disabled]="knobValue >= 3"
-         (click)="knobValue = knobValue + 1">
+         [disabled]="knobValue() >= 3"
+         (click)="incrementKnobValue()">
            <i class="flex fi fi-rr-plus-small"></i>
          </button>
        </div>
@@ -38,7 +40,7 @@
   </div>
   <div class="relative">
 
-    @if(userHasInteracted === false) {
+    @if(userHasInteracted() === false) {
       <div class="px-3 py-1.5 rounded-xl bg-black/30 text-white absolute top-1/2 left-1/2 -translate-x-1/2 translate-y-1/2 z-10
       flex flex-col items-center pointer-events-none" @instructionsPopUp>
         <span class="text-center whitespace-nowrap">Deslize para comparar</span>
@@ -53,37 +55,38 @@
     </div>
 
 
-    @let leitosoSelected = selectedFilm?.value === 'jateado-leitoso' || selectedFilm === undefined;
+    @let leitosoSelected = selectedFilm()?.value === 'jateado_leitoso' || selectedFilm() === undefined;
     <p-imagecompare  class="rounded-3xl max-h-[38rem] sm:h-auto h-[28rem] block" >
       <ng-template #left>
-          <img class="sm:object-fill object-cover" [src]="leftImageUrl"
+          <img class="sm:object-fill object-cover" [src]="leftImageUrl()"
           alt="Janela sem película à esquerda"
           [ngClass]="{ 'object-left': leitosoSelected }" />
       </ng-template>
       <ng-template #right>
-          <img class="sm:object-fill object-cover" [src]="rightImageUrl"
-          alt="Janela com película {{ selectedFilm?.label }} à direita"
+          <img class="sm:object-fill object-cover" [src]="rightImageUrl()"
+          alt="Janela com película {{ selectedFilm()?.label }} à direita"
           [ngClass]="{ 'object-left': leitosoSelected }" />
       </ng-template>
     </p-imagecompare>
-    @if(selectedFilm?.value === 'g' && documentListener.isXs()) {
+
+    @if(selectedFilm()?.value === 'g' && documentListener.isXs()) {
       <!-- medidor de tonalidade -->
       <div class="flex sm:hidden items-center sm:justify-normal justify-between gap-6 bg-black/20 px-3 py-1 rounded-2xl
       absolute top-4 left-1/2 -translate-x-1/2" @knobPopUpMobile>
         <button class="p-2 rounded-xl border border-stone-200 text-stone-200 sm:text-normal text-lg
         enabled:hover:bg-white/20 enabled:active:bg-white/30 disabled:cursor-not-allowed transition-all"
-        [disabled]="knobValue <= 0"
-        (click)="knobValue = knobValue - 1">
+        [disabled]="knobValue() <= 0"
+        (click)="decrementKnobValue()">
           <i class="flex fi fi-rr-minus-small"></i>
         </button>
 
         <p-knob [(ngModel)]="knobValue" size="50" min="0" max="3" step="1"
-        textColor="#ffffff" rangeColor="hsl(0deg 0% 100% / 40%)" valueColor="white" [valueTemplate]="knobLabel"/>
+        textColor="#ffffff" rangeColor="hsl(0deg 0% 100% / 40%)" valueColor="white" [valueTemplate]="knobLabel().label"/>
 
         <button class="p-2 rounded-xl border border-stone-200 text-stone-200 sm:text-normal text-lg
         enabled:hover:bg-white/20 enabled:active:bg-white/30 disabled:cursor-not-allowed transition-all"
-        [disabled]="knobValue >= 3"
-        (click)="knobValue = knobValue + 1">
+        [disabled]="knobValue() >= 3"
+        (click)="incrementKnobValue()">
           <i class="flex fi fi-rr-plus-small"></i>
         </button>
       </div>
