@@ -21,8 +21,8 @@ O projeto foi desenvolvido com um design único e sofisticado, buscando se difer
 
   - **Angular:** Framework principal, utilizando **Standalone Components** para uma arquitetura mais limpa e modular.
   - **TypeScript:** Para um código mais robusto e de fácil manutenção.
+  - **Tailwind CSS:** Para a estilização da interface com uma abordagem *utility-first*, permitindo a criação de um design consistente e customizado.
   - **PrimeNG & PrimeFlex:** Biblioteca de componentes UI e utility-first CSS para agilizar o desenvolvimento da interface.
-  - **SCSS/Sass:** Para estilização avançada e organizada.
   - **Angular Animations:** Utilizada para criar transições de rota personalizadas e fluidas.
 
 ## 🛠️ Instalação e Execução
@@ -65,9 +65,10 @@ Este projeto foi desenvolvido com atenção especial à performance e à experi�
   - **Preload de Imagens Estratégico:** Para garantir que as imagens do comparador interativo carreguem rapidamente, foi criado um `PreloadFilesService`. Este serviço pré-carrega as imagens essenciais em segundo plano assim que a aplicação é iniciada, evitando que o usuário espere o carregamento ao interagir com a funcionalidade.
   - **Diretiva com Intersection Observer API:** Foi desenvolvida uma diretiva customizada (`IntersectionObserveDirective`) que utiliza a `Intersection Observer API` do navegador. Ela monitora quando um elemento entra na tela (viewport) e aplica uma classe CSS para disparar animações de entrada, garantindo que as animações ocorram apenas quando o conteúdo se torna visível para o usuário, otimizando a performance.
 
-### TypeScript & HTML
+### HTML & Tailwind CSS
 
-  - **Tipagem Forte com Interfaces:** O projeto utiliza `interfaces` (como `Card` e `VideoCard`) para garantir a consistência e a segurança dos tipos de dados utilizados nos componentes.
+  - **Abordagem Utility-First:** A estilização é construída com Tailwind CSS, aplicando classes de utilidade diretamente no HTML. Isso agiliza o desenvolvimento, mantém a consistência visual e facilita a criação de um design responsivo.
+  - **Design System Customizado:** O arquivo `tailwind.config.js` define o sistema de design do projeto, incluindo a paleta de cores, fontes e espaçamentos personalizados, garantindo que a identidade visual da Aju Films seja aplicada de forma consistente.
   - **HTML Semântico e Acessível:** A estrutura do HTML foi pensada para ser semântica e acessível, utilizando `aria-labels` e tags apropriadas para cada contexto.
 
 ## ⚖️ Licença
