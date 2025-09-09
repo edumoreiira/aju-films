@@ -4,6 +4,12 @@ Este repositório contém o código-fonte do site institucional da **Aju Films**
 
 O projeto foi desenvolvido com um design único e sofisticado, buscando se diferenciar dos sites institucionais tradicionais. O grande destaque é um **mecanismo de comparação de imagens**, que permite ao usuário visualizar de forma interativa o "antes e depois" da aplicação das películas ofertadas, simplesmente arrastando o mouse sobre a imagem.
 
+## 🚀 Acesso Rápido (Live Demo)
+
+**Visualize o projeto em ação acessando o site oficial:**
+
+### **[https://www.ajufilms.com.br/](https://www.ajufilms.com.br/)**
+
 ## ✨ Funcionalidades
 
   - **Comparador Interativo de Películas:** Visualize o efeito de diferentes películas (blackout, jateado, espelhado, etc.) em ambientes variados, como cozinhas, escritórios e áreas externas, através de um slider de comparação de imagens.
